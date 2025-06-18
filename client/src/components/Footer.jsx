@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.jpg';
 
 const FooterLogo = () => (
     <img src={logo}
@@ -36,11 +36,11 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-lg mb-4">Contact</h4>
                         <p className="text-gray-400">+254 70052 8806</p>
-                        <p className="text-gray-400">contact@onestoptech.co.ke</p>
+                        <p className="text-gray-400">contact@mun-tec.co.ke</p>
                     </div>
                 </div>
                 <div className="mt-12 border-t border-gray-800 pt-8 text-center text-gray-500">
-                    <p>&copy; {new Date().getFullYear()} OneStopTech Solutions. All Rights Reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} MunTek Solutions. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>

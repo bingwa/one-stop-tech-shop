@@ -22,7 +22,7 @@ export default function Contact() {
                   <BuildingOffice2Icon className="h-7 w-6 text-gray-400" aria-hidden="true" />
                 </dt>
                 <dd>
-                  123 Tech Avenue, Suite 100
+                  Moi Ave. Opp. Equity Bank
                   <br />
                   Mombasa, Kenya
                 </dd>
@@ -34,7 +34,7 @@ export default function Contact() {
                 </dt>
                 <dd>
                   <a className="hover:text-gray-900" href="tel:+254700123456">
-                    +254 700 123 456
+                    +254 700 528806
                   </a>
                 </dd>
               </div>
@@ -45,7 +45,7 @@ export default function Contact() {
                 </dt>
                 <dd>
                   <a className="hover:text-gray-900" href="mailto:contact@onestoptech.co.ke">
-                    contact@onestoptech.co.ke
+                    bingwa@onestoptech.co.ke
                   </a>
                 </dd>
               </div>

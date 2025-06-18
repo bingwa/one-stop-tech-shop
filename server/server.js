@@ -1,32 +1,77 @@
 // server/server.js
-
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors()); 
-app.use(express.json()); 
+app.use(cors());
+app.use(express.json());
 
+// --- THIS IS YOUR "DATABASE". ENSURE YOUR FILE MATCHES THIS DATA ---
 const products = [
-    { id: 1, name: 'ProBook X1', category: 'Laptop', description: 'Experience unparalleled performance with the ProBook X1...', price: 1299, image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1926&auto=format&fit=crop', images: [{id: 1, src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1926&auto=format&fit=crop'}], specs: [{name: 'Display', value: '14-inch'}] },
-    { id: 2, name: 'Galaxy S25', category: 'Phone', description: 'The future of mobile is here...', price: 999, image: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=1965&auto=format&fit=crop', images: [{id: 1, src: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=1965&auto=format&fit=crop'}], specs: [{name: 'Display', value: '6.7-inch'}] },
-    { id: 3, name: 'AirBook Lite', category: 'Laptop', description: 'Sleek, lightweight, and powerful...', price: 949, image: 'https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?q=80&w=2070&auto=format&fit=crop', images: [], specs: [] },
-    { id: 4, name: 'Pixel 9 Pro', category: 'Phone', description: 'The smartest smartphone...', price: 899, image: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbf1?q=80&w=1974&auto=format&fit=crop', images: [], specs: [] },
-    { id: 5, name: 'OfficeConnect Router', category: 'Networking', description: 'Blazing-fast, reliable Wi-Fi 6.', price: 199, image: 'https://images.unsplash.com/photo-1587584180293-83a3d55106c5?q=80&w=2070&auto=format&fit=crop', images: [], specs: [] },
-    { id: 6, name: 'Gaming Beast', category: 'Laptop', description: 'Dominate the competition with a desktop-class RTX 4080.', price: 2499, image: 'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=1932&auto=format&fit=crop', images: [], specs: [] }
+    { 
+        id: 1, name: 'ProBook X1', brand: 'HP', category: 'Laptop', condition: 'New', price: 1299, stock: 15,
+        image: '/products/laptop-main.jpg',
+        images: [
+            { id: 1, src: '/products/laptop-main.jpg', alt: 'Side view of the ProBook X1.' },
+            { id: 2, src: '/products/laptop-angle.jpg', alt: 'Front view with screen on.' },
+            { id: 3, src: '/products/laptop-keyboard.jpg', alt: 'Keyboard and trackpad detail.' },
+        ],
+        description: '<p>Experience unparalleled performance with the ProBook X1. Featuring a stunning 14" 2K display, 16GB of high-speed RAM, and a 512GB NVMe SSD for instant boot-ups. Perfect for professionals and creatives on the go.</p>', 
+        specs: [
+            { name: 'Display', value: '14-inch (2560 x 1600) IPS Panel' },
+            { name: 'Processor', value: 'Next-Gen 12-Core CPU' },
+            { name: 'Memory', value: '16GB LPDDR5 RAM' },
+            { name: 'Storage', value: '512GB NVMe SSD' }
+        ]
+    },
+    { 
+        id: 2, name: 'Galaxy S25 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 999, stock: 25,
+        image: '/products/phone-main.jpg',
+        images: [
+            { id: 1, src: '/products/phone-main.jpg', alt: 'Front view of Galaxy S25.'},
+            { id: 2, src: '/products/phone-camera.jpg', alt: 'Camera module detail.'},
+            { id: 3, src: '/products/phone-side.jpg', alt: 'Side view of the phone.'},
+        ],
+        description: '<p>The future of mobile is here. The Galaxy S25 comes with a pro-grade camera system, a dynamic 120Hz display, and all-day battery life. Unlocked, 256GB storage.</p>', 
+        specs: [
+            { name: 'RAM', value: '12GB' }, { name: 'Storage', value: '256GB' }, { name: 'Main Camera', value: '50MP + 10MP + 12MP' }, { name: 'Display', value: '6.7 inches, Dynamic LTPO AMOLED 2X' }
+        ]
+    },
+    { 
+        id: 3, name: 'AirBook Lite', brand: 'Apple', category: 'Laptop', condition: 'Refurbished', price: 749, stock: 10,
+        image: '/products/laptop-air.jpg',
+        images: [ {id: 1, src: '/products/laptop-air.jpg', alt: 'AirBook Lite on a desk.'} ],
+        description: '<p>Sleek, lightweight, and powerful. This certified refurbished AirBook Lite is your perfect companion for everyday tasks.</p>', 
+        specs: [ { name: 'Display', value: '13.3-inch Retina Display' }, { name: 'Memory', value: '8GB LPDDR4 RAM' }, { name: 'Storage', value: '256GB SSD' } ]
+    },
+    { 
+        id: 4, name: 'Pixel 9 Pro', brand: 'Google', category: 'Phone', condition: 'New', price: 899, stock: 0,
+        image: '/products/phone-pixel.jpg',
+        images: [],
+        description: '<p>The smartest smartphone. With an industry-leading AI-powered camera and the purest Android experience.</p>', 
+        specs: [ { name: 'Storage', value: '128GB Internal' }, { name: 'Camera', value: '50MP Main, 12MP Ultrawide'} ]
+    },
+    { 
+        id: 5, name: 'OfficeConnect Router', brand: 'Linksys', category: 'Networking', condition: 'New', price: 199, stock: 30,
+        image: '/products/router.jpg',
+        images: [],
+        description: '<p>Blanket your home or office with blazing-fast, reliable Wi-Fi 6.</p>', 
+        specs: [ { name: 'Standard', value: 'Wi-Fi 6 (802.11ax)' }, { name: 'Speed', value: 'Up to 1.8 Gbps' } ]
+    },
+    { 
+        id: 6, name: 'iPhone 15 Pro', brand: 'Apple', category: 'Phone', condition: 'Refurbished', price: 950, stock: 8,
+        image: '/products/phone-iphone.jpg',
+        images: [],
+        description: '<p>The power of Pro, for less. This certified refurbished iPhone 15 Pro delivers incredible performance and camera quality.</p>', 
+        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR' }, { name: 'Chip', value: 'A17 Bionic' } ]
+    }
 ];
 
-app.get('/api/products', (req, res) => {
-  res.json(products);
-});
-
-// **THIS IS THE ROUTE THAT NEEDS TO BE ON THE LIVE SERVER**
+// API routes
+app.get('/api/products', (req, res) => res.json(products));
 app.get('/api/products/:id', (req, res) => {
-    const productId = parseInt(req.params.id, 10);
-    const product = products.find(p => p.id === productId);
-
+    const product = products.find(p => p.id === parseInt(req.params.id));
     if (product) {
         res.json(product);
     } else {
@@ -34,6 +79,4 @@ app.get('/api/products/:id', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

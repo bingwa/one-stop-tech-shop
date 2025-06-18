@@ -26,14 +26,19 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (productId, quantity) => {
       setCart(prevCart => prevCart.map(item => 
         item.id === productId ? {...item, quantity: quantity} : item
-      ).filter(item => item.quantity > 0)); 
+      ).filter(item => item.quantity > 0));
   };
+  
+  const clearCart = () => {
+      setCart([]);
+  }
 
   const value = {
     cart,
     addToCart,
     removeFromCart,
     updateQuantity,
+    clearCart,
     cartCount: cart.reduce((count, item) => count + item.quantity, 0),
     totalPrice: cart.reduce((total, item) => total + item.price * item.quantity, 0),
   };

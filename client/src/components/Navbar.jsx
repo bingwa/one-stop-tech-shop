@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.jpg';
 
 const Logo = () => (
 
@@ -27,7 +27,7 @@ export default function Navbar() {
         <NavLink to="/" className="flex items-center gap-2">
             <Logo />
             <span className="hidden sm:block text-xl font-bold text-gray-800">
-                One-Stop Tech Solutions
+                MunTek Solutions
             </span>
         </NavLink>
         <nav className="hidden md:flex items-center space-x-2">
