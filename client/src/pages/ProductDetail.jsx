@@ -14,7 +14,7 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [products, setProducts] = useState([]);
+  
  
 
   useEffect(() => {
