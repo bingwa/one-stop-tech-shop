@@ -16,7 +16,7 @@ export default function Checkout() {
             <div className="text-center py-24">
                 <h1 className="text-3xl font-bold text-gray-800">Your Cart is Empty</h1>
                 <p className="mt-4 text-gray-600">Looks like you haven't added anything to your cart yet.</p>
-                <Link to="/shop" className="mt-6 inline-block rounded-md bg-primary-blue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary-blue">
+                <Link to="/shop" className="mt-6 inline-block rounded-md bg-primary-blue px-4 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-secondary-blue">
                     Go to Shop
                 </Link>
             </div>

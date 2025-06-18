@@ -1,0 +1,19 @@
+    # This file tells Netlify how to build your React app.
+    # Place this file in your `client` folder.
+    
+    [build]
+      # This is the command Netlify will run to build your site.
+      command = "npm run build"
+    
+      # This is the folder that contains the built, static version of your site.
+      publish = "dist"
+    
+      # This tells Netlify where the root of your frontend project is.
+      # This is important because your repo has both a client and server.
+      base = "client"
+    
+    [[redirects]]
+      from = "/*"
+      to = "/index.html"
+      status = 200
+    
