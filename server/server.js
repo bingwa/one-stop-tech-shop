@@ -25,9 +25,9 @@ const products = [
     },
     { 
         id: 2, name: 'Galaxy S25 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 999, stock: 25,
-        image: '/products/Samsung-Galaxy-S25-Ultra',
+        image: '/products/Samsung-Galaxy-S25-Ultra.jpg',
         images: [
-            { id: 1, src: '/products/Samsung-Galaxy-S25-Ultra', alt: 'Front view of Galaxy S25.'},
+            { id: 1, src: '/products/Samsung-Galaxy-S25-Ultra.jpg', alt: 'Front view of Galaxy S25.'},
         ],
         description: 'The future of mobile is here. The Galaxy S25 comes with a pro-grade camera system, a dynamic 120Hz display, and all-day battery life. Unlocked, 256GB storage.', 
         specs: [
@@ -35,18 +35,18 @@ const products = [
         ]
     },
     { 
-        id: 3, name: 'AirBook Lite', brand: 'Apple', category: 'Laptop', condition: 'Refurbished', price: 749, stock: 10,
-        image: '/products/laptop-air.jpg',
-        images: [ {id: 1, src: '/products/laptop-air.jpg', alt: 'AirBook Lite on a desk.'} ],
+        id: 3, name: 'Samsung Galaxy A26 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 749, stock: 10,
+        image: '/products/Samsung-Galaxy-A26-5G-B.jpg',
+        images: [ {id: 1, src: '/products/Samsung-Galaxy-A26-5G-B.jpg', alt: 'Front view of Galaxy A26.'} ],
         description: 'Sleek, lightweight, and powerful. This certified refurbished AirBook Lite is your perfect companion for everyday tasks.', 
-        specs: [ { name: 'Display', value: '13.3-inch Retina Display' }, { name: 'Memory', value: '8GB LPDDR4 RAM' }, { name: 'Storage', value: '256GB SSD' } ]
+        specs: [ { name: 'Display', value: '6.5-inch Dynamic AMOLED 2X' }, { name: 'RAM', value: '6GB' }, { name: 'Storage', value: '128GB Storage' } ]
     },
     { 
         id: 4, name: 'Pixel 9 Pro', brand: 'Google', category: 'Phone', condition: 'New', price: 899, stock: 0,
         image: '/products/phone-pixel.jpg',
         images: [],
         description: 'The smartest smartphone. With an industry-leading AI-powered camera and the purest Android experience.', 
-        specs: [ { name: 'Storage', value: '128GB Internal' }, { name: 'Camera', value: '50MP Main, 12MP Ultrawide'} ]
+        specs: [ { name: 'RAM', value: '12GB' }, { name: 'Storage', value: '128GB Internal' }, { name: 'Camera', value: '50MP Main, 12MP Ultrawide'} ]
     },
     { 
         id: 5, name: 'OfficeConnect Router', brand: 'Linksys', category: 'Networking', condition: 'New', price: 199, stock: 30,
