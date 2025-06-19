@@ -43,7 +43,7 @@ const products = [
     },
     { 
         id: 4, name: 'Samsung Galaxy A56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 620, stock: 22,
-        image: '/products/Samsung-Galaxy-A56.jpg',
+        image: '/products/Samsung-Galaxy-A56-5G.jpg',
         images: [],
         description: 'Experience the power of the Galaxy A56. Enjoy pro-grade photography, a smooth 120Hz display, and premium design.', 
         specs: [ { name: 'Display', value: '6.5-inch Super AMOLED, 120Hz' }, { name: 'RAM', value: '8GB' }, { name: 'Main Camera', value: '64MP OIS'}, { name: 'Storage', value: '256GB' } ]
@@ -56,15 +56,15 @@ const products = [
         specs: [ { name: 'Battery', value: '6000mAh' }, { name: 'Display', value: '6.7-inch PLS LCD' }, { name: 'Processor', value: 'Dimensity 700-series' } ]
     },
     { 
-        id: 6, name: 'Samsung Galaxy F16', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 250, stock: 40,
-        image: '/products/Samsung-Galaxy-F16.jpg',
+        id: 6, name: 'Samsung Galaxy F16 5G', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 250, stock: 40,
+        image: '/products/Samsung-Galaxy-F16-5G-c-1.jpg',
         images: [],
         description: 'All the essentials you need in a stylish package. This certified refurbished Galaxy F16 offers reliable performance for everyday use.', 
         specs: [ { name: 'Display', value: '6.6-inch PLS LCD' }, { name: 'Battery', value: '5000mAh' }, { name: 'Main Camera', value: '48MP' } ]
     },
     { 
         id: 7, name: 'Samsung Galaxy M16', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 199, stock: 55,
-        image: '/products/Samsung-Galaxy-M16.jpg',
+        image: '/products/Samsung-Galaxy-M16-5G-1.jpg',
         images: [],
         description: 'Your first step into the Galaxy ecosystem. The M16 provides a long-lasting battery and a large screen for entertainment on a budget.', 
         specs: [ { name: 'Display', value: '6.5-inch HD+ LCD' }, { name: 'Storage', value: '64GB' }, { name: 'Battery', value: '5000mAh' } ]
