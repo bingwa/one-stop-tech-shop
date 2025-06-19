@@ -7,20 +7,20 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// --- THIS IS YOUR "DATABASE". ENSURE YOUR FILE MATCHES THIS DATA ---
+// This array is your "database".
 const products = [
     { 
-        id: 1, name: 'ProBook X1', brand: 'HP', category: 'Laptop', condition: 'New', price: 1299, stock: 15,
-        image: '/products/laptop-main.jpg',
+        id: 1, name: 'Samsung Galaxy A36', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 1299, stock: 15,
+        image: '/products/Samsung-Galaxy-A36-5G.jpg',
         images: [
-            { id: 1, src: '/products/laptop-main.jpg', alt: 'Side view of the ProBook X1.' },
+            { id: 1, src: '/products/Samsung-Galaxy-A36-5G.jpg', alt: 'Front view of Galaxy A36.' },
         ],
-        description: 'Experience unparalleled performance with the ProBook X1. Featuring a stunning 14" 2K display, 16GB of high-speed RAM, and a 512GB NVMe SSD for instant boot-ups. Perfect for professionals and creatives on the go.', 
+        description: 'Experience unparalleled performance with the Samsung Galaxy A36. Featuring a stunning 6.4" Dynamic AMOLED 2X display, 6GB of high-speed RAM, and a 128GB storage for instant boot-ups. Perfect for professionals and creatives on the go.', 
         specs: [
-            { name: 'Display', value: '14-inch (2560 x 1600) IPS Panel' },
-            { name: 'Processor', value: 'Next-Gen 12-Core CPU' },
-            { name: 'Memory', value: '16GB LPDDR5 RAM' },
-            { name: 'Storage', value: '512GB NVMe SSD' }
+            { name: 'Display', value: '6.4-inch Dynamic AMOLED 2X' },
+            { name: 'Processor', value: 'Snapdragon 8 Gen 2' },
+            { name: 'RAM', value: '6GB' },
+            { name: 'Storage', value: '128GB' }
         ]
     },
     { 
@@ -42,30 +42,39 @@ const products = [
         specs: [ { name: 'Display', value: '6.5-inch Dynamic AMOLED 2X' }, { name: 'RAM', value: '6GB' }, { name: 'Storage', value: '128GB Storage' } ]
     },
     { 
-        id: 4, name: 'Pixel 9 Pro', brand: 'Google', category: 'Phone', condition: 'New', price: 899, stock: 0,
-        image: '/products/phone-pixel.jpg',
+        id: 4, name: 'Samsung Galaxy A56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 620, stock: 22,
+        image: '/products/Samsung-Galaxy-A56.jpg',
         images: [],
-        description: 'The smartest smartphone. With an industry-leading AI-powered camera and the purest Android experience.', 
-        specs: [ { name: 'RAM', value: '12GB' }, { name: 'Storage', value: '128GB Internal' }, { name: 'Camera', value: '50MP Main, 12MP Ultrawide'} ]
+        description: 'Experience the power of the Galaxy A56. Enjoy pro-grade photography, a smooth 120Hz display, and premium design.', 
+        specs: [ { name: 'Display', value: '6.5-inch Super AMOLED, 120Hz' }, { name: 'RAM', value: '8GB' }, { name: 'Main Camera', value: '64MP OIS'}, { name: 'Storage', value: '256GB' } ]
     },
     { 
-        id: 5, name: 'OfficeConnect Router', brand: 'Linksys', category: 'Networking', condition: 'New', price: 199, stock: 30,
-        image: '/products/router.jpg',
+        id: 5, name: 'Samsung Galaxy M56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 550, stock: 18,
+        image: '/products/Samsung-Galaxy-M56.jpg',
         images: [],
-        description: 'Blanket your home or office with blazing-fast, reliable Wi-Fi 6.', 
-        specs: [ { name: 'Standard', value: 'Wi-Fi 6 (802.11ax)' }, { name: 'Speed', value: 'Up to 1.8 Gbps' } ]
+        description: 'Power through your day and then some. The Galaxy M56 is a monster of a phone with a massive battery and an efficient processor.', 
+        specs: [ { name: 'Battery', value: '6000mAh' }, { name: 'Display', value: '6.7-inch PLS LCD' }, { name: 'Processor', value: 'Dimensity 700-series' } ]
     },
     { 
-        id: 6, name: 'iPhone 15 Pro', brand: 'Apple', category: 'Phone', condition: 'Refurbished', price: 950, stock: 8,
-        image: '/products/phone-iphone.jpg',
+        id: 6, name: 'Samsung Galaxy F16', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 250, stock: 40,
+        image: '/products/Samsung-Galaxy-F16.jpg',
         images: [],
-        description: 'The power of Pro, for less. This certified refurbished iPhone 15 Pro delivers incredible performance and camera quality.', 
-        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR' }, { name: 'Chip', value: 'A17 Bionic' } ]
+        description: 'All the essentials you need in a stylish package. This certified refurbished Galaxy F16 offers reliable performance for everyday use.', 
+        specs: [ { name: 'Display', value: '6.6-inch PLS LCD' }, { name: 'Battery', value: '5000mAh' }, { name: 'Main Camera', value: '48MP' } ]
+    },
+    { 
+        id: 7, name: 'Samsung Galaxy M16', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 199, stock: 55,
+        image: '/products/Samsung-Galaxy-M16.jpg',
+        images: [],
+        description: 'Your first step into the Galaxy ecosystem. The M16 provides a long-lasting battery and a large screen for entertainment on a budget.', 
+        specs: [ { name: 'Display', value: '6.5-inch HD+ LCD' }, { name: 'Storage', value: '64GB' }, { name: 'Battery', value: '5000mAh' } ]
     }
+
 ];
 
 // API routes
 app.get('/api/products', (req, res) => res.json(products));
+
 app.get('/api/products/:id', (req, res) => {
     const product = products.find(p => p.id === parseInt(req.params.id));
     if (product) {
@@ -75,4 +84,6 @@ app.get('/api/products/:id', (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// The extra '}' at the end of the file has been removed.
