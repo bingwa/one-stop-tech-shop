@@ -7,10 +7,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// This array is your "database".
+// This array is your "database", with prices updated to KSh.
 const products = [
     { 
-        id: 1, name: 'Samsung Galaxy A36', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 1299, stock: 15,
+        id: 1, name: 'Samsung Galaxy A36', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 169000, stock: 15,
         image: '/products/Samsung-Galaxy-A36-5G.jpg',
         images: [
             { id: 1, src: '/products/Samsung-Galaxy-A36-5G.jpg', alt: 'Front view of Galaxy A36.' },
@@ -24,7 +24,7 @@ const products = [
         ]
     },
     { 
-        id: 2, name: 'Galaxy S25 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 999, stock: 25,
+        id: 2, name: 'Galaxy S25 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 130000, stock: 25,
         image: '/products/Samsung-Galaxy-S25-Ultra.jpg',
         images: [
             { id: 1, src: '/products/Samsung-Galaxy-S25-Ultra.jpg', alt: 'Front view of Galaxy S25.'},
@@ -35,35 +35,35 @@ const products = [
         ]
     },
     { 
-        id: 3, name: 'Samsung Galaxy A26 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 749, stock: 10,
+        id: 3, name: 'Samsung Galaxy A26 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 97500, stock: 10,
         image: '/products/Samsung-Galaxy-A26-5G-B.jpg',
         images: [ {id: 1, src: '/products/Samsung-Galaxy-A26-5G-B.jpg', alt: 'Front view of Galaxy A26.'} ],
         description: 'Sleek, lightweight, and powerful. This certified refurbished AirBook Lite is your perfect companion for everyday tasks.', 
         specs: [ { name: 'Display', value: '6.5-inch Dynamic AMOLED 2X' }, { name: 'RAM', value: '6GB' }, { name: 'Storage', value: '128GB Storage' } ]
     },
     { 
-        id: 4, name: 'Samsung Galaxy A56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 620, stock: 22,
+        id: 4, name: 'Samsung Galaxy A56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 80000, stock: 22,
         image: '/products/Samsung-Galaxy-A56-5G.jpg',
         images: [],
         description: 'Experience the power of the Galaxy A56. Enjoy pro-grade photography, a smooth 120Hz display, and premium design.', 
         specs: [ { name: 'Display', value: '6.5-inch Super AMOLED, 120Hz' }, { name: 'RAM', value: '8GB' }, { name: 'Main Camera', value: '64MP OIS'}, { name: 'Storage', value: '256GB' } ]
     },
     { 
-        id: 5, name: 'Samsung Galaxy M56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 550, stock: 18,
+        id: 5, name: 'Samsung Galaxy M56', brand: 'Samsung', category: 'Phone', condition: 'New', price: 71500, stock: 18,
         image: '/products/Samsung-Galaxy-M56.jpg',
         images: [],
         description: 'Power through your day and then some. The Galaxy M56 is a monster of a phone with a massive battery and an efficient processor.', 
         specs: [ { name: 'Battery', value: '6000mAh' }, { name: 'Display', value: '6.7-inch PLS LCD' }, { name: 'Processor', value: 'Dimensity 700-series' } ]
     },
     { 
-        id: 6, name: 'Samsung Galaxy F16 5G', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 250, stock: 40,
+        id: 6, name: 'Samsung Galaxy F16 5G', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 32500, stock: 40,
         image: '/products/Samsung-Galaxy-F16-5G-c-1.jpg',
         images: [],
         description: 'All the essentials you need in a stylish package. This certified refurbished Galaxy F16 offers reliable performance for everyday use.', 
         specs: [ { name: 'Display', value: '6.6-inch PLS LCD' }, { name: 'Battery', value: '5000mAh' }, { name: 'Main Camera', value: '48MP' } ]
     },
     { 
-        id: 7, name: 'Samsung Galaxy M16', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 199, stock: 55,
+        id: 7, name: 'Samsung Galaxy M16', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 25900, stock: 55,
         image: '/products/Samsung-Galaxy-M16-5G-1.jpg',
         images: [],
         description: 'Your first step into the Galaxy ecosystem. The M16 provides a long-lasting battery and a large screen for entertainment on a budget.', 
@@ -84,6 +84,4 @@ app.get('/api/products/:id', (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-// The extra '}' at the end of the file has been removed.
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
