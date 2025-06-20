@@ -27,7 +27,7 @@ export default function Shop() {
         categories: [],
         brands: [],
         conditions: [],
-        price: 3000
+        price: 300000
     });
 
     const filterOptions = useMemo(() => ({
@@ -82,8 +82,8 @@ export default function Shop() {
                             <FilterDisclosure title="Brand">{filterOptions.brands.map(brand => (<div key={brand} className="flex items-center mt-2"><input id={`brand-${brand}`} onChange={() => handleFilterChange('brands', brand)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`brand-${brand}`} className="ml-3 text-sm text-gray-600">{brand}</label></div>))}</FilterDisclosure>
                             <FilterDisclosure title="Condition">{filterOptions.conditions.map(cond => (<div key={cond} className="flex items-center mt-2"><input id={`cond-${cond}`} onChange={() => handleFilterChange('conditions', cond)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`cond-${cond}`} className="ml-3 text-sm text-gray-600">{cond}</label></div>))}</FilterDisclosure>
                             <FilterDisclosure title="Price">
-                                <input type="range" min="100" max="300000" step="50" value={filters.price} onChange={(e) => setFilters(f => ({ ...f, price: Number(e.target.value) }))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-4"/>
-                                <div className="text-center font-medium text-gray-700 mt-2">Up to <span className="font-bold text-blue-600">${filters.price}</span></div>
+                                <input type="range" min="1000" max="300000" step="500" value={filters.price} onChange={(e) => setFilters(f => ({ ...f, price: Number(e.target.value) }))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-4"/>
+                                <div className="text-center font-medium text-gray-700 mt-2">Up to <span className="font-bold text-blue-600">Ksh {filters.price}</span></div>
                             </FilterDisclosure>
                         </div>
                     </aside>

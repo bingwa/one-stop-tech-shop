@@ -73,17 +73,17 @@ export default function Checkout() {
                         <dl className="mt-6 space-y-4">
                             <div className="flex items-center justify-between">
                                 <dt className="text-sm text-gray-600">Subtotal</dt>
-                                <dd className="text-sm font-medium text-gray-900">${totalPrice.toFixed(2)}</dd>
+                                <dd className="text-sm font-medium text-gray-900">{"Ksh " + totalPrice.toFixed(2)}</dd>
                             </div>
                             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt className="flex items-center text-sm text-gray-600">
                                     <span>Shipping estimate</span>
                                 </dt>
-                                <dd className="text-sm font-medium text-gray-900">$5.00</dd>
+                                <dd className="text-sm font-medium text-gray-900">Ksh 5.00</dd>
                             </div>
                             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt className="text-base font-medium text-gray-900">Order total</dt>
-                                <dd className="text-base font-medium text-gray-900">${(totalPrice + 5).toFixed(2)}</dd>
+                                <dd className="text-base font-medium text-gray-900">{"Ksh " + (totalPrice + 5).toFixed(2)}</dd>
                             </div>
                         </dl>
                         <div className="mt-6">

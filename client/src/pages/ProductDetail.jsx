@@ -85,7 +85,7 @@ export default function ProductDetail() {
           {/* Product info */}
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">{product.name}</h1>
-            <div className="mt-4 flex justify-between items-center"><p className="text-3xl tracking-tight text-gray-900">${product.price.toFixed(2)}</p><span className={`inline-flex items-center gap-x-1.5 rounded-full px-3 py-1 text-sm font-medium ${isOutOfStock ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>{isOutOfStock ? 'Out of Stock' : 'In Stock'}</span></div>
+            <div className="mt-4 flex justify-between items-center"><p className="text-3xl tracking-tight text-gray-900">{"Ksh " + product.price.toFixed(2)}</p><span className={`inline-flex items-center gap-x-1.5 rounded-full px-3 py-1 text-sm font-medium ${isOutOfStock ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>{isOutOfStock ? 'Out of Stock' : 'In Stock'}</span></div>
             <div className="mt-3"><div className="flex items-center"><StarIcon className="h-5 w-5 text-yellow-400" /><StarIcon className="h-5 w-5 text-yellow-400" /><StarIcon className="h-5 w-5 text-yellow-400" /><StarIcon className="h-5 w-5 text-yellow-400" /><StarIcon className="h-5 w-5 text-gray-300" /><span className="text-sm text-gray-500 ml-2">(12 Reviews)</span></div></div>
             
             <div className="mt-8 border-t border-gray-200 pt-8">

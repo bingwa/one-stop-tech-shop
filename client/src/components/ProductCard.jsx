@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
         <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
         <p className="text-sm text-gray-500 flex-grow">{product.description.substring(0, 60)}...</p>
         <div className="flex flex-1 flex-col justify-end">
-          <p className="text-lg font-bold text-gray-900">${product.price}</p>
+          <p className="text-lg font-bold text-gray-900">{"Ksh " + product.price}</p>
         </div>
       </div>
        
