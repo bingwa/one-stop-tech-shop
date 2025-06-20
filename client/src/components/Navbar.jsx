@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { ShoppingCartIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import logo from '../assets/logo.jpg';
+import { useTheme } from '../context/ThemeContext';
 
 const Logo = () => (
 
@@ -13,20 +14,21 @@ const Logo = () => (
 );
 
 export default function Navbar() {
+  const { theme, toggleTheme } = useTheme();
   const { cartCount } = useCart();
 
   
   const navLinkClass = ({ isActive }) =>
     `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
-      isActive ? 'bg-blue-100 text-primary-blue' : 'text-gray-700 hover:bg-gray-100'
+      isActive ? 'bg-blue-100 text-primary-blue dark:bg-gray-700 dark:text-primary-blue' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
     }`;
     
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-lg shadow-md">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-md dark:shadow-gray-700">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         <NavLink to="/" className="flex items-center gap-2">
             <Logo />
-            <span className="hidden sm:block text-xl font-bold text-gray-800">
+            <span className="hidden sm:block text-xl font-bold text-gray-800 dark:text-gray-100">
                 MunTek Solutions
             </span>
         </NavLink>
@@ -37,7 +39,11 @@ export default function Navbar() {
           <NavLink to="/about" className={navLinkClass}>About</NavLink>
           <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
         </nav>
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
+            {/* Theme toggle */}
+            <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+              {theme === 'dark' ? <SunIcon className="h-5 w-5 text-yellow-400"/> : <MoonIcon className="h-5 w-5 text-gray-600"/>}
+            </button>
              <NavLink to="/checkout" className="relative p-2 rounded-full hover:bg-gray-100">
                 <ShoppingCartIcon className="h-6 w-6 text-gray-600"/>
                 {cartCount > 0 && (

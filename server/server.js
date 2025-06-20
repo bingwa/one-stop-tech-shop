@@ -38,7 +38,7 @@ const products = [
         id: 3, name: 'Samsung Galaxy A26 5G', brand: 'Samsung', category: 'Phone', condition: 'New', price: 30500, stock: 10,
         image: '/products/Samsung-Galaxy-A26-5G-B.jpg',
         images: [ {id: 1, src: '/products/Samsung-Galaxy-A26-5G-B.jpg', alt: 'Front view of Galaxy A26.'} ],
-        description: 'Sleek, lightweight, and powerful. This certified refurbished AirBook Lite is your perfect companion for everyday tasks.', 
+        description: 'Sleek, lightweight, and powerful. This certified refurbished Galaxy A26 is your perfect companion for everyday tasks.', 
         specs: [ { name: 'Display', value: '6.5-inch Dynamic AMOLED 2X' }, { name: 'RAM', value: '6GB' }, { name: 'Storage', value: '128GB Storage' } ]
     },
     { 

@@ -72,18 +72,18 @@ export default function Shop() {
     if (error) return <div className="text-center py-20 text-red-500">Error: {error}</div>;
 
     return (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col lg:flex-row gap-8 py-16">
                     <aside className="w-full lg:w-1/4 lg:pr-8">
-                        <div className="p-6 bg-white rounded-lg shadow-sm sticky top-24">
-                            <h2 className="text-xl font-bold mb-4 border-b pb-4">Filters</h2>
-                            <FilterDisclosure title="Category">{filterOptions.categories.map(cat => (<div key={cat} className="flex items-center mt-2"><input id={`cat-${cat}`} onChange={() => handleFilterChange('categories', cat)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`cat-${cat}`} className="ml-3 text-sm text-gray-600">{cat}</label></div>))}</FilterDisclosure>
-                            <FilterDisclosure title="Brand">{filterOptions.brands.map(brand => (<div key={brand} className="flex items-center mt-2"><input id={`brand-${brand}`} onChange={() => handleFilterChange('brands', brand)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`brand-${brand}`} className="ml-3 text-sm text-gray-600">{brand}</label></div>))}</FilterDisclosure>
-                            <FilterDisclosure title="Condition">{filterOptions.conditions.map(cond => (<div key={cond} className="flex items-center mt-2"><input id={`cond-${cond}`} onChange={() => handleFilterChange('conditions', cond)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`cond-${cond}`} className="ml-3 text-sm text-gray-600">{cond}</label></div>))}</FilterDisclosure>
+                        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm sticky top-24">
+                            <h2 className="text-xl font-bold mb-4 border-b pb-4 dark:text-gray-100">Filters</h2>
+                            <FilterDisclosure title="Category">{filterOptions.categories.map(cat => (<div key={cat} className="flex items-center mt-2"><input id={`cat-${cat}`} onChange={() => handleFilterChange('categories', cat)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`cat-${cat}`} className="ml-3 text-sm text-gray-600 dark:text-gray-300">{cat}</label></div>))}</FilterDisclosure>
+                            <FilterDisclosure title="Brand">{filterOptions.brands.map(brand => (<div key={brand} className="flex items-center mt-2"><input id={`brand-${brand}`} onChange={() => handleFilterChange('brands', brand)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`brand-${brand}`} className="ml-3 text-sm text-gray-600 dark:text-gray-300">{brand}</label></div>))}</FilterDisclosure>
+                            <FilterDisclosure title="Condition">{filterOptions.conditions.map(cond => (<div key={cond} className="flex items-center mt-2"><input id={`cond-${cond}`} onChange={() => handleFilterChange('conditions', cond)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" /><label htmlFor={`cond-${cond}`} className="ml-3 text-sm text-gray-600 dark:text-gray-300">{cond}</label></div>))}</FilterDisclosure>
                             <FilterDisclosure title="Price">
-                                <input type="range" min="1000" max="300000" step="500" value={filters.price} onChange={(e) => setFilters(f => ({ ...f, price: Number(e.target.value) }))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-4"/>
-                                <div className="text-center font-medium text-gray-700 mt-2">Up to <span className="font-bold text-blue-600">Ksh {filters.price}</span></div>
+                                <input type="range" min="100000" max="300000" step="50" value={filters.price} onChange={(e) => setFilters(f => ({ ...f, price: Number(e.target.value) }))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-4"/>
+                                <div className="text-center font-medium text-gray-700 dark:text-gray-300 mt-2">Up to <span className="font-bold text-blue-600">Ksh {filters.price}</span></div>
                             </FilterDisclosure>
                         </div>
                     </aside>
