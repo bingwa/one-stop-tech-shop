@@ -1,11 +1,25 @@
 // server/server.js
+require('dotenv').config();
 const express = require('express');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Configure nodemailer transport using environment variables
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) : 465,
+    secure: true,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 // This array is your "database" with prices updated to KSh.
 const products = [
@@ -71,7 +85,94 @@ const products = [
     }
 ];
 
-// API routes
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+    const { firstName, lastName, email, message } = req.body;
+
+    const mailOptions = {
+        from: `"${firstName} ${lastName}" <${email}>`,
+        to: process.env.EMAIL_TO || 'munteksolutions@gmail.com',
+        subject: 'New Contact Form Submission',
+        text: message,
+        html: `<p>${message}</p><p>From: ${firstName} ${lastName} (${email})</p>`
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Message sent successfully' });
+    } catch (err) {
+        console.error('Error sending email:', err);
+        res.status(500).json({ message: 'Failed to send message' });
+    }
+});
+
+// Mpesa STK Push checkout endpoint
+app.post('/api/mpesa/checkout', async (req, res) => {
+    const { phone, amount } = req.body;
+    if (!phone || !amount) return res.status(400).json({ message: 'Phone and amount are required.' });
+
+    const {
+        MPESA_ENV = 'sandbox',
+        MPESA_CONSUMER_KEY,
+        MPESA_CONSUMER_SECRET,
+        MPESA_SHORTCODE,
+        MPESA_PASSKEY,
+        MPESA_CALLBACK_URL = 'https://mycallback.example.com/mpesa'
+    } = process.env;
+
+    if (!MPESA_CONSUMER_KEY || !MPESA_CONSUMER_SECRET || !MPESA_SHORTCODE || !MPESA_PASSKEY) {
+        return res.status(500).json({ message: 'Mpesa credentials not configured.' });
+    }
+
+    const baseUrl = MPESA_ENV === 'production' ? 'https://api.safaricom.co.ke' : 'https://sandbox.safaricom.co.ke';
+
+    try {
+        // 1. Get OAuth token
+        const auth = Buffer.from(`${MPESA_CONSUMER_KEY}:${MPESA_CONSUMER_SECRET}`).toString('base64');
+        const tokenResp = await fetch(`${baseUrl}/oauth/v1/generate?grant_type=client_credentials`, {
+            headers: { Authorization: `Basic ${auth}` }
+        });
+        if (!tokenResp.ok) throw new Error('Failed to obtain Mpesa token');
+        const { access_token } = await tokenResp.json();
+
+        // 2. Prepare STK push data
+        const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14);
+        const password = Buffer.from(`${MPESA_SHORTCODE}${MPESA_PASSKEY}${timestamp}`).toString('base64');
+        const payload = {
+            BusinessShortCode: MPESA_SHORTCODE,
+            Password: password,
+            Timestamp: timestamp,
+            TransactionType: 'CustomerPayBillOnline',
+            Amount: amount,
+            PartyA: phone.startsWith('254') ? phone : phone.replace(/^0/, '254'),
+            PartyB: MPESA_SHORTCODE,
+            PhoneNumber: phone.startsWith('254') ? phone : phone.replace(/^0/, '254'),
+            CallBackURL: MPESA_CALLBACK_URL,
+            AccountReference: 'OneStopTech',
+            TransactionDesc: 'Purchase at OneStopTech'
+        };
+
+        const stkResp = await fetch(`${baseUrl}/mpesa/stkpush/v1/processrequest`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        const stkData = await stkResp.json();
+        if (stkResp.ok && stkData.ResponseCode === '0') {
+            return res.status(200).json({ message: 'STK push initiated', data: stkData });
+        }
+        console.error('STK error', stkData);
+        return res.status(500).json({ message: 'Failed to initiate STK push', data: stkData });
+    } catch (err) {
+        console.error('Mpesa error:', err);
+        return res.status(500).json({ message: 'Mpesa error', error: err.message });
+    }
+});
+
+// Existing API routes
 app.get('/api/products', (req, res) => res.json(products));
 app.get('/api/products/:id', (req, res) => {
     const product = products.find(p => p.id === parseInt(req.params.id));

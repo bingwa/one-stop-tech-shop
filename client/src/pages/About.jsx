@@ -15,10 +15,10 @@ export default function About() {
             <div className="lg:max-w-lg">
               <h3 className="text-base font-semibold leading-7 text-primary-blue">Our Mission</h3>
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900">Your Trusted Tech Partner</p>
-              <p className="mt-6 text-lg leading-8 text-gray-700">
-                Founded in 2015, One-Stop Tech Solutions was born from a desire to provide comprehensive, no-nonsense technology services. We saw a gap between specialized service providers and a market that needed a single, reliable partner for all its tech needs.
+              <p className="mt-6 text-lg leading-8 text-black-700">
+                Founded in 2025, MunTek Solutions was born from a desire to provide comprehensive, no-nonsense technology services. We saw a gap between specialized service providers and a market that needed a single, reliable partner for all its tech needs.
               </p>
-              <p className="mt-8 text-lg leading-8 text-gray-700">
+              <p className="mt-8 text-lg leading-8 text-black-700">
                 Our team is composed of certified professionals who are passionate about what they do and are committed to staying ahead of the tech curve.
               </p>
             </div>

@@ -10,10 +10,31 @@ export default function Contact() {
     message: ''
   });
 
-  const handleSubmit = (event) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
-    // Add your form submission logic here
+    try {
+      const res = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (res.ok) {
+        alert('Message sent successfully!');
+        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+      } else {
+        alert('There was an error sending your message. Please try again later.');
+      }
+    } catch (err) {
+      console.error('Submit error:', err);
+      alert('There was an error sending your message.');
+    }
   };
 
   return (
@@ -71,27 +92,27 @@ export default function Contact() {
           <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               <div>
-                <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">First name</label>
+                <label htmlFor="firstName" className="block text-sm font-semibold leading-6 text-gray-900">First name</label>
                 <div className="mt-2.5">
-                  <input type="text" name="first-name" id="first-name" autoComplete="given-name" className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
+                  <input type="text" name="firstName" id="firstName" autoComplete="given-name" value={formData.firstName} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
                 </div>
               </div>
               <div>
-                <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
+                <label htmlFor="lastName" className="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
                 <div className="mt-2.5">
-                  <input type="text" name="last-name" id="last-name" autoComplete="family-name" className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
+                  <input type="text" name="lastName" id="lastName" autoComplete="family-name" value={formData.lastName} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email</label>
                 <div className="mt-2.5">
-                  <input type="email" name="email" id="email" autoComplete="email" className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
+                  <input type="email" name="email" id="email" autoComplete="email" value={formData.email} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">Message</label>
                 <div className="mt-2.5">
-                  <textarea name="message" id="message" rows={4} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6" defaultValue={''}/>
+                  <textarea name="message" id="message" rows={4} value={formData.message} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
                 </div>
               </div>
             </div>

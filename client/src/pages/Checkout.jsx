@@ -1,14 +1,36 @@
 import { useCart } from '@/context/CartContext.jsx';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function Checkout() {
     const { cart, totalPrice, removeFromCart, updateQuantity, clearCart } = useCart();
+    const [phone, setPhone] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handlePlaceOrder = (e) => {
+    const handlePlaceOrder = async (e) => {
         e.preventDefault();
-        alert('Thank you for your order! (This is a demo)');
-        clearCart();
+        if (!phone) { alert('Enter phone number'); return; }
+        setLoading(true);
+        try {
+            const res = await fetch('http://localhost:5000/api/mpesa/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phone, amount: totalPrice })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                alert('Mpesa prompt sent. Please complete payment on your phone.');
+                clearCart();
+            } else {
+                alert(`Payment error: ${data.message}`);
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Network error, try again later');
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (cart.length === 0) {
@@ -26,7 +48,7 @@ export default function Checkout() {
     return (
         <div className="bg-white">
             <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-gray sm:text-4xl">Shopping Cart</h1>
                 <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16" onSubmit={handlePlaceOrder}>
                     <section aria-labelledby="cart-heading" className="lg:col-span-7">
                         <h2 id="cart-heading" className="sr-only">Items in your shopping cart</h2>
@@ -67,27 +89,38 @@ export default function Checkout() {
                         </ul>
                     </section>
 
-                    {/* Order summary */}
                     <section aria-labelledby="summary-heading" className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-                        <h2 id="summary-heading" className="text-lg font-medium text-gray-900">Order summary</h2>
+                        <h2 id="summary-heading" className="text-lg font-medium text-black mb-4">Order summary</h2>
+                        <div className="mb-4">
+                            <label htmlFor="phone" className="block text-sm font-medium text-black mb-1">Mpesa Phone Number</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                placeholder="07xxxxxxxx"
+                                className="block w-full rounded-md border-gray-300 px-3 py-2 shadow-sm focus:border-primary-blue focus:ring-primary-blue sm:text-sm"
+                            />
+                        </div>
                         <dl className="mt-6 space-y-4">
                             <div className="flex items-center justify-between">
-                                <dt className="text-sm text-gray-600">Subtotal</dt>
-                                <dd className="text-sm font-medium text-gray-900">{"Ksh " + totalPrice.toFixed(2)}</dd>
+                                <dt className="text-sm text-black">Subtotal</dt>
+                                <dd className="text-sm font-medium text-black">{"Ksh " + totalPrice.toFixed(2)}</dd>
                             </div>
                             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                                <dt className="flex items-center text-sm text-gray-600">
+                                <dt className="flex items-center text-sm text-black">
                                     <span>Shipping estimate</span>
                                 </dt>
-                                <dd className="text-sm font-medium text-gray-900">Ksh 5.00</dd>
+                                <dd className="text-sm font-medium text-black">Ksh 5.00</dd>
                             </div>
                             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                                <dt className="text-base font-medium text-gray-900">Order total</dt>
-                                <dd className="text-base font-medium text-gray-900">{"Ksh " + (totalPrice + 5).toFixed(2)}</dd>
+                                <dt className="text-base font-medium text-black">Order total</dt>
+                                <dd className="text-base font-medium text-black">{"Ksh " + (totalPrice + 5).toFixed(2)}</dd>
                             </div>
                         </dl>
                         <div className="mt-6">
-                            <button type="submit" className="w-full rounded-md border border-transparent bg-primary-blue px-4 py-3 text-base font-medium text-black shadow-sm hover:bg-secondary-blue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                            <button type="submit" disabled={loading} className="w-full rounded-md border border-transparent bg-primary-blue px-4 py-3 text-base font-medium text-black shadow-sm hover:bg-secondary-blue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                                 Checkout
                             </button>
                         </div>
