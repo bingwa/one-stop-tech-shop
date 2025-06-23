@@ -82,6 +82,20 @@ const products = [
         images: [],
         description: 'Your first step into the Galaxy ecosystem. The M16 provides a long-lasting battery and a large screen for entertainment on a budget.', 
         specs: [ { name: 'Display', value: '6.5-inch HD+ LCD' }, { name: 'Storage', value: '64GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 8, name: 'Apple Iphone 16', brand: 'Apple', category: 'Phone', condition: 'New', price: 125000, stock: 6,
+        image: '/products/Apple-iphone-16-1.jpg',
+        images: [],
+        description: 'Your first step into the Galaxy ecosystem. The Iphone 16 provides a long-lasting battery and a large screen for entertainment on a budget.', 
+        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 9, name: 'Apple Iphone 16e', brand: 'Apple', category: 'Phone', condition: 'New', price: 75000, stock: 10,
+        image: '/products/Apple-iphone-16e.jpg',
+        images: [],
+        description: 'Your first step into the Galaxy ecosystem. The Iphone 16e provides a long-lasting battery and a large screen for entertainment on a budget.', 
+        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
     }
 ];
 

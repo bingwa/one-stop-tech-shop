@@ -1,4 +1,3 @@
-// client/src/pages/Shop.jsx
 import { useState, useEffect, useMemo } from 'react';
 import ProductCard from '../components/ProductCard.jsx';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
