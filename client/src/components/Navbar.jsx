@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useCart } from '../context/CartContext';
 import { ShoppingCartIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import logo from '../assets/logo.jpg';
@@ -15,6 +17,7 @@ const Logo = () => (
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cartCount } = useCart();
 
   
@@ -39,6 +42,17 @@ export default function Navbar() {
           <NavLink to="/about" className={navLinkClass}>About</NavLink>
           <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
         </nav>
+        {/* Mobile menu toggle */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
+        >
+          {isMobileMenuOpen ? (
+            <XMarkIcon className="h-6 w-6 text-gray-600" />
+          ) : (
+            <Bars3Icon className="h-6 w-6 text-gray-600" />
+          )}
+        </button>
         <div className="flex items-center gap-2">
             {/* Theme toggle */}
             <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
@@ -53,6 +67,18 @@ export default function Navbar() {
                 )}
             </NavLink>
         </div>
+       {/* Mobile navigation panel */}
+       {isMobileMenuOpen && (
+         <div className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md">
+           <div className="px-4 py-4 space-y-1 flex flex-col">
+             <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/" className={navLinkClass}>Home</NavLink>
+             <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/services" className={navLinkClass}>Services</NavLink>
+             <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/shop" className={navLinkClass}>Shop</NavLink>
+             <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/about" className={navLinkClass}>About</NavLink>
+             <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/contact" className={navLinkClass}>Contact</NavLink>
+           </div>
+         </div>
+       )}
       </div>
     </header>
   );
