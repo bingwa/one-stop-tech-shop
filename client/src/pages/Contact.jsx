@@ -9,6 +9,17 @@ export default function Contact() {
     email: '',
     message: ''
   });
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // Helper to get backend URL based on environment
+  const getBackendUrl = () => {
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL + '/api/contact';
+    }
+    // fallback: relative path (works for same-origin deploys)
+    return '/api/contact';
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,8 +28,10 @@ export default function Contact() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    setStatus('Sending...');
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch(getBackendUrl(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -26,14 +39,16 @@ export default function Contact() {
         body: JSON.stringify(formData)
       });
       if (res.ok) {
-        alert('Message sent successfully!');
+        setStatus('Message sent successfully!');
         setFormData({ firstName: '', lastName: '', email: '', message: '' });
       } else {
-        alert('There was an error sending your message. Please try again later.');
+        const data = await res.json().catch(() => ({}));
+        setStatus(data.message || 'There was an error sending your message. Please try again later.');
       }
     } catch (err) {
-      console.error('Submit error:', err);
-      alert('There was an error sending your message.');
+      setStatus('There was an error sending your message.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,10 +131,11 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            <div className="mt-8 flex justify-end">
-              <button type="submit" className="rounded-md bg-primary-blue px-3.5 py-2.5 text-center text-sm font-semibold text-black shadow-sm hover:bg-secondary-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-blue">
-                Send message
+            <div className="mt-8 flex flex-col items-end gap-2">
+              <button type="submit" className="rounded-md bg-primary-blue px-3.5 py-2.5 text-center text-sm font-semibold text-black shadow-sm hover:bg-secondary-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-blue" disabled={loading}>
+                {loading ? 'Sending...' : 'Send message'}
               </button>
+              {status && <div className={`text-sm ${status.includes('success') ? 'text-green-600' : 'text-red-600'}`}>{status}</div>}
             </div>
           </div>
         </form>

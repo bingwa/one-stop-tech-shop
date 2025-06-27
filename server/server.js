@@ -7,7 +7,17 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000', // React dev server
+  'http://127.0.0.1:3000',
+  'https://munteksolutions.netlify.app/' // your live site
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['POST', 'GET'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Configure nodemailer transport using environment variables
@@ -21,7 +31,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// This array is your "database" with prices updated to KSh.
+
 const products = [
     { 
         id: 1, name: 'Samsung Galaxy A36', brand: 'Samsung', category: 'Phone', condition: 'Refurbished', price: 36500, stock: 15,
@@ -99,7 +109,7 @@ const products = [
     }
 ];
 
-// Contact form endpoint
+
 app.post('/api/contact', async (req, res) => {
     const { firstName, lastName, email, message } = req.body;
 
@@ -120,7 +130,7 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// Mpesa STK Push checkout endpoint
+
 app.post('/api/mpesa/checkout', async (req, res) => {
     const { phone, amount } = req.body;
     if (!phone || !amount) return res.status(400).json({ message: 'Phone and amount are required.' });
@@ -198,4 +208,3 @@ app.get('/api/products/:id', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-// The extra '}' at the end of the file was here and has been removed.
