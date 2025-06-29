@@ -7,56 +7,18 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  'http://localhost:3000', // React dev server
+  'http://127.0.0.1:3000',
+  'https://munteksolutions.netlify.app/' // your live site
+];
 
-// Enable CORS with more permissive settings
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    // List of allowed origins
-    const allowedOrigins = [
-      'https://munteksolutions.netlify.app',
-      'http://localhost:5173',
-      'https://one-stop-tech-shop.onrender.com',
-      'http://localhost:3000',
-      'http://localhost:5000'
-    ];
-
-    // Allow all subdomains of netlify.app and onrender.com
-    if (
-      allowedOrigins.includes(origin) ||
-      origin.endsWith('.netlify.app') ||
-      origin.endsWith('.onrender.com')
-    ) {
-      console.log('Allowed origin:', origin);
-      return callback(null, true);
-    }
-
-    console.warn('Blocked by CORS:', origin);
-    return callback(new Error(`Not allowed by CORS: ${origin}`), false);
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-};
-
-// Enable CORS pre-flight
-app.options('*', cors(corsOptions));
-
-// Apply CORS to all routes
-app.use(cors(corsOptions));
-
-// Log all requests for debugging
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`, {
-    origin: req.headers.origin,
-    'user-agent': req.headers['user-agent']
-  });
-  next();
-});
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['POST', 'GET'],
+  credentials: true
+}));
+app.use(express.json());
 
 // Configure nodemailer transport using environment variables
 const transporter = nodemailer.createTransport({

@@ -38,45 +38,12 @@ export default function Shop() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                // In production, use the full URL, in development use the proxy
-                const apiUrl = import.meta.env.PROD 
-                    ? 'https://one-stop-tech-shop-api.onrender.com' 
-                    : '';
-                const apiEndpoint = `${apiUrl}/api/products`;
-                console.log('Fetching from:', apiEndpoint);
-                
-                // Add timestamp to prevent caching issues
-                const url = new URL(apiEndpoint);
-                url.searchParams.append('_t', Date.now());
-                
-                console.log('Final URL:', url.toString());
-                
-                const response = await fetch(url.toString(), {
-                    method: 'GET',
-                    mode: 'cors', // Enable CORS mode
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache'
-                    },
-                    credentials: 'include', // Include cookies if needed
-                    cache: 'no-store' // Prevent caching
-                });
-                
-                console.log('Response status:', response.status);
-                console.log('Response headers:', [...response.headers.entries()]);
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Server response:', errorText);
-                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
-                }
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+                const response = await fetch(`${apiUrl}/api/products`);
+                if (!response.ok) throw new Error('Network error. Is the server running?');
                 const data = await response.json();
                 setAllProducts(data);
-            } catch (err) { 
-                console.error('Fetch error:', err);
-                setError(`Failed to load products: ${err.message}`); 
-            }
+            } catch (err) { setError(err.message); } 
             finally { setLoading(false); }
         };
         fetchProducts();
