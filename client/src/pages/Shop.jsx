@@ -42,11 +42,25 @@ export default function Shop() {
                 const apiUrl = import.meta.env.PROD 
                     ? 'https://one-stop-tech-shop-api.onrender.com' 
                     : '';
-                const response = await fetch(`${apiUrl}/api/products`);
-                if (!response.ok) throw new Error('Network error. Is the server running?');
+                console.log('Fetching from:', `${apiUrl}/api/products`);
+                const response = await fetch(`${apiUrl}/api/products`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include' // Include cookies if needed
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Server response:', errorText);
+                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                }
                 const data = await response.json();
                 setAllProducts(data);
-            } catch (err) { setError(err.message); } 
+            } catch (err) { 
+                console.error('Fetch error:', err);
+                setError(`Failed to load products: ${err.message}`); 
+            }
             finally { setLoading(false); }
         };
         fetchProducts();
