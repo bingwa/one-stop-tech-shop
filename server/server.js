@@ -7,18 +7,25 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = [
-  'http://localhost:3000', // React dev server
-  'http://127.0.0.1:3000',
-  'https://munteksolutions.netlify.app/' // your live site
-];
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['POST', 'GET'],
-  credentials: true
-}));
-app.use(express.json());
+const allowedOrigins = [
+    'https://munteksolutions.netlify.app',
+    'http://localhost:5173'
+  ];
+  
+  const corsOptions = {
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    }
+  };
+  
+  app.use(cors(corsOptions));
 
 // Configure nodemailer transport using environment variables
 const transporter = nodemailer.createTransport({
