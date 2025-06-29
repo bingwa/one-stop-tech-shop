@@ -38,8 +38,11 @@ export default function Shop() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-                const response = await fetch(`/api/products`);
+                // In production, use the full URL, in development use the proxy
+                const apiUrl = import.meta.env.PROD 
+                    ? 'https://one-stop-tech-shop-api.onrender.com' 
+                    : '';
+                const response = await fetch(`${apiUrl}/api/products`);
                 if (!response.ok) throw new Error('Network error. Is the server running?');
                 const data = await response.json();
                 setAllProducts(data);
