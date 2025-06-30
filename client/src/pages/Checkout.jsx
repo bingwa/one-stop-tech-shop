@@ -100,7 +100,7 @@ export default function Checkout() {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 placeholder="07xxxxxxxx"
-                                className="block w-full rounded-md border-gray-300 px-3 py-2 shadow-sm focus:border-primary-blue focus:ring-primary-blue sm:text-sm"
+                                className="block w-full rounded-md border-gray-300 px-3 py-2 shadow-sm focus:border-primary-blue focus:ring-primary-blue sm:text-sm text-black"
                             />
                         </div>
                         <dl className="mt-6 space-y-4">
