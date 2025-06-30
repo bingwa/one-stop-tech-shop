@@ -8,17 +8,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
-  'http://localhost:3000', // React dev server
-  'http://127.0.0.1:3000',
-  'https://munteksolutions.netlify.app/' // your live site
-];
-
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['POST', 'GET'],
-  credentials: true
-}));
-app.use(express.json());
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:5173', // FIX: Added your current development origin
+    'https://munteksolutions.netlify.app'  // No trailing slash!
+  ];
+  
+  app.use(cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'OPTIONS'],  // Include OPTIONS
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  }));
 
 // Configure nodemailer transport using environment variables
 const transporter = nodemailer.createTransport({
