@@ -101,15 +101,15 @@ const products = [
         id: 8, name: 'Apple Iphone 16', brand: 'Apple', category: 'Phone', condition: 'New', price: 125000, stock: 6,
         image: '/products/Apple-iphone-16-1.jpg',
         images: [],
-        description: 'Your first step into the Galaxy ecosystem. The Iphone 16 provides a long-lasting battery and a large screen for entertainment on a budget.', 
-        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+        description: 'The iPhone 16 is a leap forward in mobile technology. Equipped with the powerful A18 Bionic chip, it delivers incredibly smooth performance for everything you do. The advanced dual-camera system captures stunningly detailed photos, and the bright Super Retina XDR display makes your content look its best. With 128GB of storage, its the perfect all-arounder for your daily needs', 
+        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
     },
     { 
         id: 9, name: 'Apple Iphone 16e', brand: 'Apple', category: 'Phone', condition: 'New', price: 75000, stock: 10,
         image: '/products/Apple-iphone-16e.jpg',
         images: [],
-        description: 'Your first step into the Galaxy ecosystem. The Iphone 16e provides a long-lasting battery and a large screen for entertainment on a budget.', 
-        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+        description: 'Get ready for the perfect blend of performance and value with the iPhone 16e. Its vibrant 6.1-inch display brings everything to life, powered by the efficient A18 chip. The impressive 48MP main camera ensures you never miss a moment, and with 128GB of storage, youll have plenty of room for your apps and photos. A fantastic choice for those seeking the latest features in a more accessible package', 
+        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
     },
     { 
         id: 10, name: 'Apple Iphone 16 Pro', brand: 'Apple', category: 'Phone', condition: 'New', price: 150000, stock: 10,
