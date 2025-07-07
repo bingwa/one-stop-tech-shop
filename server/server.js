@@ -120,21 +120,21 @@ const products = [
     },
     { 
         id: 11, name: 'Apple Iphone 15', brand: 'Apple', category: 'Phone', condition: 'New', price: 92000, stock: 10,
-        image: '/products/Apple-iphone-15.jpg',
+        image: '/products/iPhone-15.jpg',
         images: [],
         description: 'Capture your life in stunning detail with the iPhone 15. Its advanced 48MP Main camera with 2x Telephoto zoom lets you take incredible photos, while the A16 Bionic chip provides the power for a smooth and responsive experience. The innovative Dynamic Island keeps you informed, and with 128GB of storage, you can keep all your important files close at hand.', 
         specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
     },
     { 
         id: 12, name: 'Apple Iphone 14 Pro', brand: 'Apple', category: 'Phone', condition: 'New', price: 66000, stock: 10,
-        image: '/products/Apple-iphone-14-pro.jpg',
+        image: '/products/iPhone-14-Pro.jpg',
         images: [],
         description: 'Discover the power of Pro with the iPhone 14 Pro. Featuring the intelligent Dynamic Island, a brilliant 6.1-inch Super Retina XDR display, and the incredibly fast A16 Bionic chip. The 48MP Main camera delivers mind-blowing detail in every shot. With 128GB of storage, it’s the perfect companion for those who demand performance and portability.', 
         specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
     },
     { 
         id: 13, name: 'Apple Iphone 14 Pro Max', brand: 'Apple', category: 'Phone', condition: 'New', price: 95000, stock: 10,
-        image: '/products/Apple-iphone-14-Pro-max.jpg',
+        image: '/products/iPhone-14-Pro-Max.jpg',
         images: [],
         description: 'Go big with the iPhone 14 Pro Max. Its expansive 6.7-inch Super Retina XDR display with ProMotion technology offers an immersive viewing experience. The A16 Bionic chip ensures pro-level performance, and the groundbreaking 48MP Main camera captures astonishing detail. With 128GB of storage and all-day battery life, it’s the ultimate tool for power users.', 
         specs: [ { name: 'Display', value: '6.7-inch Super Retina XDR display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
