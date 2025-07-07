@@ -8,18 +8,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(express.json()); // FIX: Add this line to parse JSON request bodies
+app.use(express.json()); // This is necessary to parse JSON request bodies
 
 const allowedOrigins = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://localhost:5173',
-    'https://munteksolutions.netlify.app'  // No trailing slash!
+    'https://munteksolutions.netlify.app'
   ];
   
   app.use(cors({
     origin: allowedOrigins,
-    methods: ['GET', 'POST', 'OPTIONS'],  // Include OPTIONS
+    methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   }));
@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        pass: process.env.EMAIL_PASS // IMPORTANT: This must be a Google App Password, not your regular password
     }
 });
 
@@ -110,6 +110,62 @@ const products = [
         images: [],
         description: 'Your first step into the Galaxy ecosystem. The Iphone 16e provides a long-lasting battery and a large screen for entertainment on a budget.', 
         specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 10, name: 'Apple Iphone 16 Pro', brand: 'Apple', category: 'Phone', condition: 'New', price: 150000, stock: 10,
+        image: '/products/Apple-iphone-16-Pro.jpg',
+        images: [],
+        description: 'Experience the future with the iPhone 16 Pro. Featuring a stunningly bright display and the powerful A18 Bionic chip, this phone is a creative powerhouse. The advanced triple-camera system with a 48MP main sensor captures breathtaking photos and videos, while the 256GB of storage provides ample space for all your memories. Its durable titanium design and enhanced battery life make it the ultimate pro device.', 
+        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 11, name: 'Apple Iphone 15', brand: 'Apple', category: 'Phone', condition: 'New', price: 92000, stock: 10,
+        image: '/products/Apple-iphone-15.jpg',
+        images: [],
+        description: 'Capture your life in stunning detail with the iPhone 15. Its advanced 48MP Main camera with 2x Telephoto zoom lets you take incredible photos, while the A16 Bionic chip provides the power for a smooth and responsive experience. The innovative Dynamic Island keeps you informed, and with 128GB of storage, you can keep all your important files close at hand.', 
+        specs: [ { name: 'Display', value: '6.5-inch OLED display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 12, name: 'Apple Iphone 14 Pro', brand: 'Apple', category: 'Phone', condition: 'New', price: 66000, stock: 10,
+        image: '/products/Apple-iphone-14-pro.jpg',
+        images: [],
+        description: 'Discover the power of Pro with the iPhone 14 Pro. Featuring the intelligent Dynamic Island, a brilliant 6.1-inch Super Retina XDR display, and the incredibly fast A16 Bionic chip. The 48MP Main camera delivers mind-blowing detail in every shot. With 128GB of storage, it’s the perfect companion for those who demand performance and portability.', 
+        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 13, name: 'Apple Iphone 14 Pro Max', brand: 'Apple', category: 'Phone', condition: 'New', price: 95000, stock: 10,
+        image: '/products/Apple-iphone-14-Pro-max.jpg',
+        images: [],
+        description: 'Go big with the iPhone 14 Pro Max. Its expansive 6.7-inch Super Retina XDR display with ProMotion technology offers an immersive viewing experience. The A16 Bionic chip ensures pro-level performance, and the groundbreaking 48MP Main camera captures astonishing detail. With 128GB of storage and all-day battery life, it’s the ultimate tool for power users.', 
+        specs: [ { name: 'Display', value: '6.7-inch Super Retina XDR display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 14, name: 'Apple Iphone 13 Pro', brand: 'Apple', category: 'Phone', condition: 'New', price: 66000, stock: 10,
+        image: '/products/Apple-iphone-13-Pro.jpg',
+        images: [],
+        description: 'A Pro camera system like no other. The iPhone 13 Pro features a stunning 6.1-inch Super Retina XDR display with ProMotion for a faster, more responsive feel. The A15 Bionic chip provides powerhouse performance, and the triple-camera system enables breathtaking photos and Cinematic mode for professional-quality videos. With a generous 256GB of storage, you can capture more of what you love', 
+        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 15, name: 'Apple Iphone 12', brand: 'Apple', category: 'Phone', condition: 'New', price: 46000, stock: 10,
+        image: '/products/Apple-iphone-12.jpg',
+        images: [],
+        description: 'The iPhone 12 packs a punch with its bright and beautiful 6.1-inch Super Retina XDR display and the powerful A14 Bionic chip. The dual-camera system captures stunning photos and videos, even in low light. With a generous 256GB of storage, you’ll have plenty of space for all your memories and apps', 
+        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 16, name: 'Apple Iphone 12 Pro', brand: 'Apple', category: 'Phone', condition: 'New', price: 50000, stock: 10,
+        image: '/products/Apple-iphone-12-Pro.jpg',
+        images: [],
+        description: 'Experience a new era of speed and creativity with the iPhone 12 Pro. Its 6.1-inch Super Retina XDR display brings your content to life, while the A14 Bionic chip, the fastest chip in a smartphone at its time, handles demanding tasks with ease. The Pro camera system with LiDAR scanner opens up new possibilities for photography and augmented reality', 
+        specs: [ { name: 'Display', value: '6.1-inch Super Retina XDR display' }, { name: 'Storage', value: '128GB' }, { name: 'Battery', value: '5000mAh' } ]
+    },
+    { 
+        id: 17, name: 'Samsung S24 Ultra', brand: 'Samsung', category: 'Phone', condition: 'New', price: 107000, stock: 10,
+        image: '/products/Samsung-Galaxy-S24-Ultra.jpg',
+        images: [],
+        description: 'Unleash your creativity with the Samsung S24 Ultra. Its stunning 6.8-inch Dynamic AMOLED 2X display with an embedded S Pen provides a canvas for your ideas. The revolutionary 200MP camera system captures epic photos in any light, and the powerful Snapdragon® 8 Gen 3 for Galaxy processor delivers unparalleled performance. With a massive 5000mAh battery and 256GB of storage, it’s the ultimate device for work and play.', 
+        specs: [ { name: 'Display', value: '6.8-inch Dynamic AMOLED 2X display' }, { name: 'Storage', value: '256GB' }, { name: 'Battery', value: '5000mAh' } ]
     }
 ];
 
@@ -117,9 +173,12 @@ const products = [
 app.post('/api/contact', async (req, res) => {
     const { firstName, lastName, email, message } = req.body;
 
+    // FIX: Using your own email as the `from` address and the user's email as `replyTo`
+    // is better for deliverability and avoids spam filters.
     const mailOptions = {
-        from: `"${firstName} ${lastName}" <${email}>`,
+        from: `"${firstName} ${lastName}" <${process.env.EMAIL_USER}>`, // Send from your authenticated email
         to: process.env.EMAIL_TO || 'munteksolutions@gmail.com',
+        replyTo: email, // Set the user's email as the reply-to address
         subject: 'New Contact Form Submission',
         text: message,
         html: `<p>${message}</p><p>From: ${firstName} ${lastName} (${email})</p>`
@@ -130,7 +189,7 @@ app.post('/api/contact', async (req, res) => {
         res.status(200).json({ message: 'Message sent successfully' });
     } catch (err) {
         console.error('Error sending email:', err);
-        res.status(500).json({ message: 'Failed to send message' });
+        res.status(500).json({ message: 'Failed to send message. Please check server logs for details.' });
     }
 });
 
