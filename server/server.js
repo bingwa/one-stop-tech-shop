@@ -21,12 +21,13 @@ const allowedOrigins = [
     'https://munteksolutions.netlify.app'
 ];
   
-app.use(cors({
+app.use(
+  cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
-}));
+  })
+);
 
 // Keep your existing nodemailer transport
 const transporter = nodemailer.createTransport({
