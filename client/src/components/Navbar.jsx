@@ -18,7 +18,8 @@ const Logo = () => (
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { cartCount } = useCart();
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   
   const navLinkClass = ({ isActive }) =>
@@ -58,7 +59,7 @@ export default function Navbar() {
             <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
               {theme === 'dark' ? <SunIcon className="h-5 w-5 text-yellow-400"/> : <MoonIcon className="h-5 w-5 text-gray-600"/>}
             </button>
-             <NavLink to="/checkout" className="relative p-2 rounded-full hover:bg-gray-100">
+             <NavLink to="/cart" className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
                 <ShoppingCartIcon className="h-6 w-6 text-gray-600"/>
                 {cartCount > 0 && (
                     <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">

@@ -6,7 +6,7 @@ import ProductCard from '../components/ProductCard.jsx';
 import { StarIcon } from '@heroicons/react/20/solid';
 
 export default function ProductDetail() {
-  const { productId } = useParams();
+  const { id } = useParams();
   const { addToCart } = useCart();
   
   const [product, setProduct] = useState(null);
@@ -24,8 +24,8 @@ export default function ProductDetail() {
         setError(null);
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
         
-        const productResponse = await fetch(`${apiUrl}/api/products/${productId}`);
-        if (!productResponse.ok) throw new Error(`Product with ID ${productId} not found. Make sure the server is running the latest code.`);
+        const productResponse = await fetch(`${apiUrl}/api/products/${id}`);
+        if (!productResponse.ok) throw new Error(`Product with ID ${id} not found. Make sure the server is running the latest code.`);
         
         const productData = await productResponse.json();
         setProduct(productData);
@@ -39,7 +39,7 @@ export default function ProductDetail() {
         const allProductsResponse = await fetch(`${apiUrl}/api/products`);
         const allProductsData = await allProductsResponse.json();
         
-        const similar = allProductsData.filter(p => p.category === productData.category && p.id !== parseInt(productId));
+        const similar = allProductsData.filter(p => p.category === productData.category && p.id !== parseInt(id));
         setSimilarProducts(similar.slice(0, 4));
 
       } catch (err) {
@@ -51,7 +51,7 @@ export default function ProductDetail() {
 
     fetchProductData();
     window.scrollTo(0, 0);
-  }, [productId]);
+  }, [id]);
 
   if (loading) return <div className="text-center py-20">Loading Product...</div>;
   if (error) return (

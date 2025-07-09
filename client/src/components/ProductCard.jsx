@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { PlusIcon, MinusIcon, CheckIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
 export default function ProductCard({ product }) {
-  const { cart, addToCart, updateQuantity } = useCart();
-  const itemInCart = cart.find(item => item.id === product.id);
+  const { cartItems, addToCart, increaseQuantity, decreaseQuantity } = useCart();
+  const itemInCart = cartItems.find(item => item.id === product.id);
   const quantity = itemInCart ? itemInCart.quantity : 0;
   const isOutOfStock = product.stock === 0;
 
@@ -18,11 +18,19 @@ export default function ProductCard({ product }) {
   const handleDecrease = (e) => {
     e.preventDefault(); e.stopPropagation();
     if (isOutOfStock) return;
-    if (itemInCart) updateQuantity(product.id, itemInCart.quantity - 1);
+    if (itemInCart) {
+      if (itemInCart.quantity === 1) {
+        // If quantity is 1, it should be removed, but the current context has a separate `removeFromCart`.
+        // For simplicity, we'll use decreaseQuantity which handles not going below 1.
+        decreaseQuantity(product.id);
+      } else {
+        decreaseQuantity(product.id);
+      }
+    }
   };
 
   return (
-    <Link to={`/shop/${product.id}`} className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+    <Link to={`/product/${product.id}`} className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
       
       {/* Stock Badge */}
       <div className={`absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold text-white ${isOutOfStock ? 'bg-red-500' : 'bg-green-500'}`}>
