@@ -179,11 +179,8 @@ const products = [
     }
 ];
 
-// --- NEW M-PESA INTEGRATION ---
+// --- M-PESA INTEGRATION ---
 
-/**
- * Middleware to get M-Pesa access token.
- */
 const getMpesaAccessToken = async (req, res, next) => {
     const consumerKey = process.env.MPESA_CONSUMER_KEY;
     const consumerSecret = process.env.MPESA_CONSUMER_SECRET;

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
-import ProductCard from '../components/ProductCard.jsx';
+import ProductCard from '../components/shop/ProductCard.jsx';
 import { StarIcon } from '@heroicons/react/20/solid';
 
 export default function ProductDetail() {

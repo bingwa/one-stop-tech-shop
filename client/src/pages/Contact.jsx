@@ -1,145 +1,211 @@
-import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
-
+/*  src/pages/Contact.jsx  */
 import { useState } from 'react';
+import {
+  PhoneIcon,
+  EnvelopeIcon,
+  BuildingOffice2Icon,
+} from '@heroicons/react/24/outline';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
+  // ─────────────────── state ───────────────────
+  const [form, setForm] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    message: ''
+    message: '',
   });
-  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState('');
 
-  // Helper to get backend URL based on environment
-  const getBackendUrl = () => {
-    if (import.meta.env.VITE_API_URL) {
-      return import.meta.env.VITE_API_URL + '/api/contact';
-    }
-    // fallback: relative path (works for same-origin deploys)
-    return '/api/contact';
-  };
+  // full API path, works locally and in prod
+  const api =
+    import.meta.env.VITE_API_URL
+      ? `${import.meta.env.VITE_API_URL}/api/contact`
+      : '/api/contact';
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  // ───────────────── handlers ──────────────────
+  const onChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    setStatus('Sending...');
+    setNotice('');
+
     try {
-      const res = await fetch(getBackendUrl(), {
+      const res = await fetch(api, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
       });
+
       if (res.ok) {
-        setStatus('Message sent successfully!');
-        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+        setNotice('Message sent! We’ll get back to you shortly.');
+        setForm({ firstName: '', lastName: '', email: '', message: '' });
       } else {
-        const data = await res.json().catch(() => ({}));
-        setStatus(data.message || 'There was an error sending your message. Please try again later.');
+        setNotice(
+          'Something went wrong. Please try again later.'
+        );
       }
-    } catch (err) {
-      setStatus('There was an error sending your message.');
+    } catch {
+      setNotice('Network error. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
+  // ────────────────── render ───────────────────
   return (
-    <div className="relative isolate bg-white dark:bg-gray-900">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-        <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
-          <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-            <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 dark:bg-gray-800 ring-1 ring-gray-900/10 lg:w-1/2">
-                <div className="absolute -left-56 top-[calc(100%-13rem)] transform-gpu blur-3xl lg:left-[max(50%,20rem)] lg:top-[calc(100%-40rem)]" aria-hidden="true">
-                    <div className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#6FB1FC] to-[#0052D4] opacity-20" style={{clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)'}}/>
+    <div className="min-h-screen pt-20 bg-slate-50 dark:bg-slate-900">
+      {/* main section */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* ─────── contact form ─────── */}
+          <form
+            onSubmit={onSubmit}
+            className="space-y-6 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8"
+          >
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+              Get in Touch
+            </h2>
+
+            {/* first + last */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              {['firstName', 'lastName'].map((key) => (
+                <div key={key}>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    {key === 'firstName' ? 'First Name' : 'Last Name'}
+                  </label>
+                  <input
+                    name={key}
+                    value={form[key]}
+                    onChange={onChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none"
+                  />
                 </div>
+              ))}
             </div>
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900">Get in touch</h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-             We're here to help. Whether you have a question about our services, need a quote, or want to discuss a project, our team is ready to answer all your questions.
-            </p>
-            <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Address</span>
-                  <BuildingOffice2Icon className="h-7 w-6 text-gray-400" aria-hidden="true" />
-                </dt>
-                <dd>
-                  Moi Ave. Opp. Equity Bank
-                  <br />
-                  Mombasa, Kenya
-                </dd>
-              </div>
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Telephone</span>
-                  <PhoneIcon className="h-7 w-6 text-gray-400" aria-hidden="true" />
-                </dt>
-                <dd>
-                  <a className="hover:text-gray-900" href="tel:+254700123456">
-                    +254 700 528806
-                  </a>
-                </dd>
-              </div>
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Email</span>
-                  <EnvelopeIcon className="h-7 w-6 text-gray-400" aria-hidden="true" />
-                </dt>
-                <dd>
-                  <a className="hover:text-gray-900" href="mailto:munteksolutions@gmail.com">
-                    munteksolutions@gmail.com
-                  </a>
-                </dd>
-              </div>
-            </dl>
+
+            {/* email */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={onChange}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none"
+              />
+            </div>
+
+            {/* message */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Message
+              </label>
+              <textarea
+                name="message"
+                rows="5"
+                value={form.message}
+                onChange={onChange}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none resize-none"
+              />
+            </div>
+
+            {/* submit */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex justify-center items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-4 rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              {loading ? 'Sending…' : 'Send Message'}
+            </button>
+
+            {notice && (
+              <p
+                className={`text-center text-sm ${
+                  notice.startsWith('Message')
+                    ? 'text-green-600'
+                    : 'text-red-600'
+                }`}
+              >
+                {notice}
+              </p>
+            )}
+          </form>
+
+          {/* ─────── contact info + map ─────── */}
+          <div className="space-y-10">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+              Contact Details
+            </h2>
+
+            <InfoLine
+              icon={PhoneIcon}
+              heading="Phone"
+              text="254 715747043"
+              link="tel:+254715747043"
+            />
+            <InfoLine
+              icon={EnvelopeIcon}
+              heading="Email"
+              text="munteksolutions@gmail.com"
+              link="mailto:munteksolutions@gmail.com"
+            />
+            <InfoLine
+              icon={BuildingOffice2Icon}
+              heading="Address"
+              text="Moi Avenue opposite Equity Bank, Mombasa"
+            />
+
+            {/* google map */}
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700">
+              <iframe
+                title="Mombasa office map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12891.884369239197!2d39.6627589!3d-4.0575138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x184012719a4e4871%3A0x57f7b9e6f6bb4f6e!2sEquity%20Bank%2C%20Moi%20Ave%2C%20Mombasa!5e0!3m2!1sen!2ske!4v1695123456789!5m2!1sen!2ske"
+                width="100%"
+                height="280"
+                loading="lazy"
+                style={{ border: 0 }}
+                className=" contrast-125"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
-          <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-semibold leading-6 text-gray-900">First name</label>
-                <div className="mt-2.5">
-                  <input type="text" name="firstName" id="firstName" autoComplete="given-name" value={formData.firstName} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
-                </div>
-              </div>
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
-                <div className="mt-2.5">
-                  <input type="text" name="lastName" id="lastName" autoComplete="family-name" value={formData.lastName} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email</label>
-                <div className="mt-2.5">
-                  <input type="email" name="email" id="email" autoComplete="email" value={formData.email} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">Message</label>
-                <div className="mt-2.5">
-                  <textarea name="message" id="message" rows={4} value={formData.message} onChange={handleChange} className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-blue sm:text-sm sm:leading-6"/>
-                </div>
-              </div>
-            </div>
-            <div className="mt-8 flex flex-col items-end gap-2">
-              <button type="submit" className="rounded-md bg-primary-blue px-3.5 py-2.5 text-center text-sm font-semibold text-black shadow-sm hover:bg-secondary-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-blue" disabled={loading}>
-                {loading ? 'Sending...' : 'Send message'}
-              </button>
-              {status && <div className={`text-sm ${status.includes('success') ? 'text-green-600' : 'text-red-600'}`}>{status}</div>}
-            </div>
-          </div>
-        </form>
+      </section>
+    </div>
+  );
+}
+
+/* helper for phone / email / address rows */
+function InfoLine({ icon: Icon, heading, text, link }) {
+  return (
+    <div className="flex items-start gap-4">
+      <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center">
+        <Icon className="w-6 h-6 text-white" />
+      </div>
+      <div>
+        <h3 className="font-semibold text-slate-900 dark:text-white">
+          {heading}
+        </h3>
+        {link ? (
+          <a
+            href={link}
+            className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+          >
+            {text}
+          </a>
+        ) : (
+          <p className="text-slate-600 dark:text-slate-300">{text}</p>
+        )}
       </div>
     </div>
-  )
+  );
 }
