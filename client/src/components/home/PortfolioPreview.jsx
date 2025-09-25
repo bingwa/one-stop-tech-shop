@@ -5,7 +5,7 @@ const PortfolioPreview = () => {
   // Only one project—live demo
   const project = {
     id: 1,
-    title: "Approved Logistics Fleet Management",
+    title: "Fleet Manager",
     description: "Comprehensive fleet management system for truck maintenance, fuel tracking, and compliance reporting.",
     image: "/assets/FLM.png",
     category: "web",
