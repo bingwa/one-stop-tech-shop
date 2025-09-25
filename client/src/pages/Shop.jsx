@@ -151,7 +151,7 @@ export default function Shop() {
         </div>
         {/* Background Pattern */}
         <div className="absolute inset-0 z-0 opacity-50">
-          <img src="/src/assets/shop-bg.jpg" alt="Shop Background" className="w-full h-full object-cover" />
+          <img src="/assets/shop-bg.jpg" alt="Shop Background" className="w-full h-full object-cover" />
         </div>
       </section>
 
