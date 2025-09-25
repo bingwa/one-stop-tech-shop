@@ -17,14 +17,13 @@ const Footer = () => {
     { name: 'About Us', href: '/about' },
     { name: 'Our Services', href: '/services' },
     { name: 'Shop Devices', href: '/shop' },
-    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' }
   ];
 
   const contactInfo = [
     { icon: PhoneIcon, text: '+254 7157 47043', href: 'tel:+254715747043' },
     { icon: EnvelopeIcon, text: 'munteksolutions@gmail.com', href: 'mailto:munteksolutions@gmail.com' },
-    { icon: MapPinIcon, text: 'Nairobi, Kenya', href: '#' }
+    { icon: MapPinIcon, text: 'Moi Avenue opp. Equity Bank, Mombasa', href: '#' }
   ];
 
   const socialLinks = [
