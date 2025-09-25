@@ -66,7 +66,7 @@ const About = () => {
       name: "Brian Munyao",
       position: "Founder & Lead Developer",
       specialization: "Full-Stack Development",
-      image: "src/assets/DP.jpg",
+      image: "/assets/DP.jpg",
       bio: "With over 2 years of experience in web development, Brian specializes in MERN stack applications and has led the development of various successful projects.",
       skills: ["React", "Node.js", "Python", "PostgreSQL", "Supabase"]
     },

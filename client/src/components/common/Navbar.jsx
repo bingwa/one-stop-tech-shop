@@ -56,7 +56,7 @@ export default function Navbar() {
               <div className="flex items-center space-x-3">
                 {/* Your actual logo only - no fallback */}
                 <img 
-                  src="/src/assets/logo.jpg" 
+                  src="/assets/logo.jpg" 
                   alt="Muntek Solutions" 
                   className="h-12 w-12 object-contain rounded-lg"
                 />

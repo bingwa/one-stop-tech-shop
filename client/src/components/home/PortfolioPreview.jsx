@@ -7,7 +7,7 @@ const PortfolioPreview = () => {
     id: 1,
     title: "Approved Logistics Fleet Management",
     description: "Comprehensive fleet management system for truck maintenance, fuel tracking, and compliance reporting.",
-    image: "src/assets/FLM.png",
+    image: "/assets/FLM.png",
     category: "web",
     technologies: ["React", "PostgreSQL", "PDF Generation", "Chart.js"],
     features: ["Fleet Tracking", "Maintenance Scheduling", "PDF Reports", "Compliance Forms"],
