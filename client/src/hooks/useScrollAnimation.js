@@ -17,10 +17,6 @@ export const useScrollAnimation = (threshold = 0.1) => {
 export const initializeScrollAnimations = () => {
   if (typeof window === 'undefined') return;  // guard for SSR
 
-  // Avoid multiple observers
-  if (window.__scrollAnimationsInitialized) return;
-  window.__scrollAnimationsInitialized = true;
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -34,4 +30,6 @@ export const initializeScrollAnimations = () => {
   );
 
   document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
 };

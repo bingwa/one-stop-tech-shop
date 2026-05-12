@@ -1,3 +1,6 @@
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -50,7 +53,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Poppins', 'system-ui', 'sans-serif'],
+        heading: ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
@@ -88,7 +91,7 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    forms,
+    typography,
   ],
 }

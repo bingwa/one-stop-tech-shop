@@ -1,345 +1,216 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  UserGroupIcon,
-  LightBulbIcon,
-  TrophyIcon,
+import {
+  ArrowRightIcon,
+  CheckCircleIcon,
   HeartIcon,
-  CodeBracketIcon,
-  DevicePhoneMobileIcon,
-  CloudIcon,
-  ShieldCheckIcon
+  LightBulbIcon,
+  ShieldCheckIcon,
+  TrophyIcon,
 } from '@heroicons/react/24/outline';
+import { initializeScrollAnimations } from '../hooks/useScrollAnimation';
+import ImageSequence from '../components/common/ImageSequence';
 
-const About = () => {
-  const [visibleSections, setVisibleSections] = useState([]);
+const values = [
+  {
+    icon: LightBulbIcon,
+    title: 'Practical innovation',
+    text: 'We choose modern tools because they solve real problems, not because they look impressive on a proposal.',
+  },
+  {
+    icon: HeartIcon,
+    title: 'Client-first delivery',
+    text: 'We listen closely, communicate clearly, and build around the business outcome you actually need.',
+  },
+  {
+    icon: TrophyIcon,
+    title: 'Reliable quality',
+    text: 'We care about clean interfaces, stable code, secure forms, and handovers that make sense.',
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: 'Long-term support',
+    text: 'Launch is not the end. We help maintain, improve, and support systems as your team grows.',
+  },
+];
 
-  useEffect(() => {
-    // Initialize scroll animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.dataset.index || 0);
-            setVisibleSections(prev => [...new Set([...prev, index])]);
-          }
-        });
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: '50px'
-      }
-    );
+const team = [
+  {
+    name: 'Brian Munyao',
+    role: 'Founder & Lead Developer',
+    photo: '/assets/DP.jpg',
+    skills: ['React', 'Node.js', 'Python', 'PostgreSQL', 'Supabase'],
+    bio: 'Brian leads full-stack delivery, turning business workflows into web applications, dashboards, and dependable digital products.',
+  },
+  {
+    name: 'Nathan Munyao',
+    role: 'Founder & CEO',
+    skills: ['React Native', 'Flutter', 'Strategy', 'Operations'],
+    bio: 'Nathan guides mobile delivery, client strategy, and the practical operations that keep projects moving from idea to launch.',
+  },
+];
 
-    // Observe all sections with animation
-    const animatedElements = document.querySelectorAll('.animate-section');
-    animatedElements.forEach((el) => observer.observe(el));
+const aboutFrames = [
+  '/assets/about-animation/transparent/frame-01.png',
+  '/assets/about-animation/transparent/frame-02.png',
+  '/assets/about-animation/transparent/frame-03.png',
+  '/assets/about-animation/transparent/frame-04.png',
+];
 
-    return () => observer.disconnect();
-  }, []);
-
-  const values = [
-    {
-      icon: LightBulbIcon,
-      title: "Innovation",
-      description: "We constantly explore new technologies and methodologies to deliver cutting-edge solutions that give our clients a competitive advantage."
-    },
-    {
-      icon: HeartIcon,
-      title: "Client-Focused",
-      description: "Your success is our success. We work closely with our clients to understand their needs and deliver solutions that exceed expectations."
-    },
-    {
-      icon: TrophyIcon,
-      title: "Excellence",
-      description: "We maintain the highest standards in everything we do, from code quality to customer service, ensuring premium results every time."
-    },
-    {
-      icon: ShieldCheckIcon,
-      title: "Reliability",
-      description: "Our clients trust us to deliver on time, within budget, and with ongoing support. We're committed to being a dependable technology partner."
-    }
-  ];
-
-  const team = [
-    {
-      name: "Brian Munyao",
-      position: "Founder & Lead Developer",
-      specialization: "Full-Stack Development",
-      image: "/assets/DP.jpg",
-      bio: "With over 2 years of experience in web development, Brian specializes in MERN stack applications and has led the development of various successful projects.",
-      skills: ["React", "Node.js", "Python", "PostgreSQL", "Supabase"]
-    },
-    {
-      name: "Nathan Munyao",
-      position: "Founder & CEO",
-      specialization: "React Native & Flutter",
-      image: "/api/placeholder/300/300",
-      bio: "Nathan brings expertise in cross-platform mobile development, having created numerous apps for both iOS and Android platforms.",
-      skills: ["React Native", "Flutter", "iOS", "Android"]
-    }
-  ];
-
-  const stats = [
-    { number: "50+", label: "Projects Completed", description: "Successfully delivered projects" },
-    { number: "30+", label: "Happy Clients", description: "Satisfied customers across Kenya" },
-    { number: "3+", label: "Years Experience", description: "In the Kenyan tech market" },
-    { number: "99%", label: "Client Satisfaction", description: "Based on client feedback" }
-  ];
-
-  const services = [
-    {
-      icon: CodeBracketIcon,
-      title: "Web Development",
-      description: "Custom websites and web applications"
-    },
-    {
-      icon: DevicePhoneMobileIcon,
-      title: "Mobile Apps",
-      description: "iOS and Android application development"
-    },
-    {
-      icon: CloudIcon,
-      title: "Cloud Solutions",
-      description: "Scalable infrastructure and deployment"
-    },
-    {
-      icon: UserGroupIcon,
-      title: "IT Consulting",
-      description: "Strategic technology guidance"
-    }
-  ];
+export default function About() {
+  useEffect(() => initializeScrollAnimations(), []);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-        <div className="container-custom">
-          <div 
-            className="text-center max-w-4xl mx-auto animate-section transition-all duration-700 opacity-100 translate-y-0"
-            data-index="0"
-          >
-            <h1 className="font-bold text-4xl lg:text-6xl mb-6">
-              About <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Muntek Solutions</span>
+    <div>
+      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+        <div className="container-custom grid gap-12 py-20 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:py-28">
+          <div className="animate-on-scroll">
+            <h1 className="text-5xl font-black leading-tight text-slate-950 sm:text-6xl dark:text-white">
+              A Kenyan technology partner for teams that need useful systems.
             </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
-              We are a passionate team of developers, designers, and tech enthusiasts based in Kenya, 
-              dedicated to transforming businesses through innovative technology solutions.
+            <p className="section-copy mt-6">
+              We are developers, problem solvers, and IT practitioners based in Kenya. Our work spans custom software, mobile apps, cloud deployment, networks, and hands-on support.
             </p>
-            <div className="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-6 py-3 rounded-full font-medium">
-              <span>🇰🇪</span>
-              <span>Proudly Kenyan, Globally Competitive</span>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link to="/services" className="btn-primary">
+                View services
+                <ArrowRightIcon className="h-4 w-4" />
+              </Link>
+              <Link to="/contact" className="btn-secondary">Talk to us</Link>
             </div>
+          </div>
+
+          <AboutHeroSequence />
+        </div>
+      </section>
+
+      <section className="section-padding bg-slate-50 dark:bg-slate-900">
+        <div className="container-custom grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="animate-on-scroll">
+            <h2 className="section-title">From web development to complete IT solutions.</h2>
+          </div>
+          <div className="animate-on-scroll space-y-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p>
+              Muntek Solutions started with a simple belief: Kenyan businesses deserve technology that is clear, well-built, and reachable when support is needed.
+            </p>
+            <p>
+              What began as website and application development has grown into a broader service covering mobile apps, networks, cloud deployment, technical support, and consulting.
+            </p>
+            <p>
+              We keep our work grounded in real business needs. That means understanding the people using the system, the environment it runs in, and the support required after launch.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Our Story */}
-      <section className="py-24 bg-white dark:bg-slate-900">
+      <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div 
-              className={`animate-section transition-all duration-700 ${
-                visibleSections.includes(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              data-index="1"
-            >
-              <h2 className="font-bold text-3xl lg:text-4xl mb-6">
-                Our <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Story</span>
-              </h2>
-              <div className="space-y-6 text-slate-600 dark:text-slate-300 leading-relaxed">
-                <p>
-                  Founded with a vision to bridge the technology gap in Kenya, Muntek Solutions started as a small team 
-                  of passionate developers who believed that every business deserves access to world-class technology solutions.
-                </p>
-                <p>
-                  What began as a web development service has evolved into a comprehensive IT solutions company, offering 
-                  everything from custom software development to premium device sales. We've grown by staying true to our 
-                  core values: innovation, quality, and client satisfaction.
-                </p>
-                <p>
-                  Today, we're proud to have served a diverse range of clients across various industries, from startups to established 
-                  enterprises. Our expertise in modern technologies like React, Node.js, and cloud platforms has enabled us 
-                  to deliver solutions that drive real business growth.
-                </p>
-              </div>
-            </div>
-            <div 
-              className={`animate-section transition-all duration-700 ${
-                visibleSections.includes(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              data-index="1"
-            >
-              <div className="relative">
-                <div className="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700">
-                  <div className="text-center space-y-4">
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
-                      <CodeBracketIcon className="w-12 h-12 text-white" />
-                    </div>
-                    <h4 className="font-bold text-xl text-slate-900 dark:text-white">
-                      Kenya's Tech Innovation
-                    </h4>
-                    <p className="text-slate-600 dark:text-slate-400">
-                      Driving digital transformation across East Africa
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="mx-auto mb-14 max-w-3xl text-center animate-on-scroll">
+            <h2 className="section-title">The principles behind the work.</h2>
           </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-800">
-        <div className="container-custom">
-          <div 
-            className={`text-center mb-16 animate-section transition-all duration-700 ${
-              visibleSections.includes(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            data-index="2"
-          >
-            <h2 className="font-bold text-3xl lg:text-4xl mb-6">
-              Our <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Values</span>
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              These core principles guide everything we do and shape how we serve our clients.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div
-                key={index}
-                className={`bg-white dark:bg-slate-700 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 animate-section text-center ${
-                  visibleSections.includes(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                data-index="3"
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="inline-flex p-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mb-6">
-                  <value.icon className="w-8 h-8 text-white" />
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {values.map((value) => (
+              <div key={value.title} className="surface-card surface-card-hover animate-on-scroll p-6">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-700 ring-1 ring-sky-100 dark:bg-sky-950/40 dark:text-sky-200 dark:ring-sky-900">
+                  <value.icon className="h-6 w-6" />
                 </div>
-                <h3 className="font-bold text-xl mb-4 text-slate-900 dark:text-white">
-                  {value.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {value.description}
-                </p>
+                <h3 className="text-xl font-extrabold text-slate-950 dark:text-white">{value.title}</h3>
+                <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">{value.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-24 bg-white dark:bg-slate-900">
+      <section className="section-padding border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900">
         <div className="container-custom">
-          <div 
-            className={`text-center mb-16 animate-section transition-all duration-700 ${
-              visibleSections.includes(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            data-index="4"
-          >
-            <h2 className="font-bold text-3xl lg:text-4xl mb-6">
-              Meet Our <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Team</span>
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              The talented individuals behind Muntek Solutions who bring your digital dreams to life.
-            </p>
+          <div className="mb-14 flex flex-col gap-4 animate-on-scroll lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h2 className="section-title">People behind the build.</h2>
+            </div>
+            <p className="section-copy max-w-2xl">A compact team with hands-on ownership across strategy, design, development, and support.</p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {team.map((member, index) => (
-              <div
-                key={index}
-                className={`bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 animate-section text-center border border-slate-100 dark:border-slate-700 ${
-                  visibleSections.includes(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                data-index="5"
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative mb-6">
-                  <div className="w-24 h-24 bg-slate-200 dark:bg-slate-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-slate-500 dark:text-slate-400 text-sm">Photo</span>
-                  </div>
-                  <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
-                    {member.specialization}
+          <div className="grid gap-6 md:grid-cols-2">
+            {team.map((member) => (
+              <article key={member.name} className="surface-card animate-on-scroll grid gap-6 p-6 sm:grid-cols-[10rem_1fr]">
+                <TeamAvatar name={member.name} role={member.role} photo={member.photo} />
+                <div>
+                  <h3 className="text-2xl font-extrabold text-slate-950 dark:text-white">{member.name}</h3>
+                  <p className="mt-1 font-bold text-sky-700 dark:text-sky-300">{member.role}</p>
+                  <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">{member.bio}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {member.skills.map((skill) => (
+                      <span key={skill} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-700 ring-1 ring-slate-200 dark:bg-slate-950 dark:text-slate-200 dark:ring-slate-800">
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                <h3 className="font-bold text-xl mb-2 text-slate-900 dark:text-white mt-4">
-                  {member.name}
-                </h3>
-                <p className="text-blue-600 dark:text-blue-400 font-medium mb-4">
-                  {member.position}
-                </p>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                  {member.bio}
-                </p>
-
-                {/* Skills */}
-                <div className="flex flex-wrap justify-center gap-2">
-                  {member.skills.map((skill, skillIndex) => (
-                    <span
-                      key={skillIndex}
-                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-
-      {/* Services Overview */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-800">
+      <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container-custom">
-          <div 
-            className={`text-center mb-16 animate-section transition-all duration-700 ${
-              visibleSections.includes(7) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            data-index="7"
-          >
-            <h2 className="font-bold text-3xl lg:text-4xl mb-6">
-              What We <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Do</span>
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              From concept to deployment, we provide end-to-end technology solutions.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`bg-white dark:bg-slate-700 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 animate-section text-center ${
-                  visibleSections.includes(8) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                data-index="8"
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="inline-flex p-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mb-4">
-                  <service.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="font-bold text-lg mb-3 text-slate-900 dark:text-white">
-                  {service.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm">
-                  {service.description}
-                </p>
+          <div className="surface-card animate-on-scroll p-8 sm:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+              <div>
+                <h2 className="section-title">What we bring to each project.</h2>
+                <p className="section-copy mt-5">A focused blend of development, IT support, and practical business thinking.</p>
               </div>
-            ))}
+              <div className="grid gap-3 sm:grid-cols-2">
+                {['Modern web and mobile builds', 'Cloud launch support', 'Network and device knowledge', 'Clear post-launch support'].map((item) => (
+                  <div key={item} className="flex items-center gap-3 rounded-xl bg-slate-50 p-4 font-bold text-slate-700 dark:bg-slate-900 dark:text-slate-200">
+                    <CheckCircleIcon className="h-5 w-5 text-teal-600" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
     </div>
   );
-};
+}
 
-export default About;
+function AboutHeroSequence() {
+  return (
+    <div className="surface-card animate-on-scroll overflow-hidden border-sky-100 bg-white/40 p-4 shadow-2xl shadow-sky-950/10 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:shadow-sky-950/30">
+      <div className="relative overflow-hidden rounded-[2rem] p-2">
+        <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_30%_10%,rgba(37,99,235,0.16),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(20,184,166,0.14),transparent_24%)]" />
+        <ImageSequence
+          frames={aboutFrames}
+          alt="Muntek Solutions systems overview illustration"
+          className="mx-auto max-w-[34rem]"
+        />
+      </div>
+    </div>
+  );
+}
+
+function TeamAvatar({ name, role, photo }) {
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2);
+
+  return (
+    <div className="relative h-40 w-40 overflow-hidden rounded-2xl border border-slate-200 bg-[radial-gradient(circle_at_25%_20%,rgba(14,165,233,0.22),transparent_32%),linear-gradient(135deg,#ffffff,#f1f5f9)] p-4 dark:border-white/10 dark:bg-[radial-gradient(circle_at_25%_20%,rgba(56,189,248,0.20),transparent_32%),linear-gradient(135deg,#020617,#111827)]">
+      <div className="flex h-full flex-col justify-end">
+        {photo ? (
+          <img src={photo} alt={name} className="mb-4 h-20 w-20 rounded-2xl object-cover shadow-lg ring-1 ring-slate-200 dark:ring-white/10" />
+        ) : (
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-950 text-2xl font-black text-white shadow-lg dark:bg-white dark:text-slate-950">
+            {initials}
+          </div>
+        )}
+        <p className="text-sm font-black text-slate-950 dark:text-white">{name}</p>
+        <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">{role}</p>
+      </div>
+    </div>
+  );
+}

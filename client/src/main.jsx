@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
-import { CartProvider } from './context/CartContext.jsx';
 import { AppProvider } from './context/AppContext.jsx';
 import ScrollToTop from './components/common/ScrollToTop.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
@@ -15,11 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <ThemeProvider>
         <AppProvider>
-          <CartProvider>
-            <ScrollToTop>
-              <App />
-            </ScrollToTop>
-          </CartProvider>
+          <ScrollToTop>
+            <App />
+          </ScrollToTop>
         </AppProvider>
       </ThemeProvider>
     </BrowserRouter>

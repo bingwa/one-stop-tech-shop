@@ -1,34 +1,42 @@
-/*  src/pages/Contact.jsx  */
 import { useState } from 'react';
 import {
-  PhoneIcon,
-  EnvelopeIcon,
+  ArrowRightIcon,
   BuildingOffice2Icon,
+  EnvelopeIcon,
+  PhoneIcon,
 } from '@heroicons/react/24/outline';
 
+const serviceOptions = [
+  'Web development',
+  'Mobile app development',
+  'Network installation',
+  'Cloud or deployment',
+  'IT support',
+  'Technology consulting',
+  'Not sure yet',
+];
+
 export default function Contact() {
-  // ─────────────────── state ───────────────────
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
+    phone: '',
+    service: 'Web development',
     message: '',
   });
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState('');
 
-  // full API path, works locally and in prod
-  const api =
-    import.meta.env.VITE_API_URL
-      ? `${import.meta.env.VITE_API_URL}/api/contact`
-      : '/api/contact';
+  const api = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api/contact`
+    : '/api/contact';
 
-  // ───────────────── handlers ──────────────────
-  const onChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const onChange = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (event) => {
+    event.preventDefault();
     setLoading(true);
     setNotice('');
 
@@ -39,173 +47,160 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
 
-      if (res.ok) {
-        setNotice('Message sent! We’ll get back to you shortly.');
-        setForm({ firstName: '', lastName: '', email: '', message: '' });
-      } else {
-        setNotice(
-          'Something went wrong. Please try again later.'
-        );
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || 'Server error');
       }
-    } catch {
-      setNotice('Network error. Please try again later.');
+
+      setNotice('Message sent. We will get back to you shortly.');
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        service: 'Web development',
+        message: '',
+      });
+    } catch (error) {
+      setNotice(`Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  // ────────────────── render ───────────────────
   return (
-    <div className="min-h-screen pt-20 bg-slate-50 dark:bg-slate-900">
-      {/* main section */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* ─────── contact form ─────── */}
-          <form
-            onSubmit={onSubmit}
-            className="space-y-6 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8"
-          >
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-              Get in Touch
-            </h2>
+    <div>
+      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+        <div className="container-custom py-20 lg:py-28">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="text-5xl font-black leading-tight text-slate-950 sm:text-6xl dark:text-white">
+              Tell us what you want to build, fix, or improve.
+            </h1>
+            <p className="section-copy mx-auto mt-6 max-w-3xl">
+              Use one simple form for project inquiries, support requests, and quotes. We will review the details and respond with a practical next step.
+            </p>
+          </div>
+        </div>
+      </section>
 
-            {/* first + last */}
-            <div className="grid sm:grid-cols-2 gap-6">
-              {['firstName', 'lastName'].map((key) => (
-                <div key={key}>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    {key === 'firstName' ? 'First Name' : 'Last Name'}
-                  </label>
-                  <input
-                    name={key}
-                    value={form[key]}
-                    onChange={onChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none"
-                  />
-                </div>
-              ))}
+      <section className="section-padding bg-slate-50 dark:bg-slate-900">
+        <div className="container-custom grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <form onSubmit={onSubmit} className="surface-card p-6 sm:p-8">
+            <div className="mb-8">
+              <h2 className="text-3xl font-black text-slate-950 dark:text-white">Request a quote</h2>
+              <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">
+                Share the essentials. A clear first message helps us give you a better answer faster.
+              </p>
             </div>
 
-            {/* email */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={onChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none"
-              />
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field label="Name" name="name" value={form.name} onChange={onChange} required />
+              <Field label="Email" name="email" type="email" value={form.email} onChange={onChange} required />
+              <Field label="Phone" name="phone" type="tel" value={form.phone} onChange={onChange} />
+              <div>
+                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">Service</label>
+                <select
+                  name="service"
+                  value={form.service}
+                  onChange={onChange}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:focus:ring-sky-950"
+                >
+                  {serviceOptions.map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            {/* message */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Message
-              </label>
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">Project details</label>
               <textarea
                 name="message"
-                rows="5"
+                rows="6"
                 value={form.message}
                 onChange={onChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none resize-none"
+                className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:focus:ring-sky-950"
+                placeholder="What do you need, when do you need it, and what should the finished solution help you achieve?"
               />
             </div>
 
-            {/* submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex justify-center items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-4 rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
-            >
-              {loading ? 'Sending…' : 'Send Message'}
+            <button type="submit" disabled={loading} className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60">
+              {loading ? 'Sending...' : 'Send message'}
+              <ArrowRightIcon className="h-4 w-4" />
             </button>
 
             {notice && (
-              <p
-                className={`text-center text-sm ${
-                  notice.startsWith('Message')
-                    ? 'text-green-600'
-                    : 'text-red-600'
-                }`}
-              >
+              <p className={`mt-4 text-center text-sm font-semibold ${notice.startsWith('Message sent') ? 'text-teal-700' : 'text-red-600'}`}>
                 {notice}
               </p>
             )}
           </form>
 
-          {/* ─────── contact info + map ─────── */}
-          <div className="space-y-10">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-              Contact Details
-            </h2>
+          <aside className="space-y-5">
+            <div className="surface-card p-6 sm:p-8">
+              <h2 className="text-2xl font-black text-slate-950 dark:text-white">Contact details</h2>
+              <div className="mt-6 space-y-5">
+                <InfoLine icon={PhoneIcon} heading="Phone" text="+254 715 747 043" link="tel:+254715747043" />
+                <InfoLine icon={EnvelopeIcon} heading="Email" text="munteksolutions@gmail.com" link="mailto:munteksolutions@gmail.com" />
+                <InfoLine icon={BuildingOffice2Icon} heading="Office" text="Moi Avenue opposite Equity Bank, Mombasa" />
+              </div>
+            </div>
 
-            <InfoLine
-              icon={PhoneIcon}
-              heading="Phone"
-              text="254 715747043"
-              link="tel:+254715747043"
-            />
-            <InfoLine
-              icon={EnvelopeIcon}
-              heading="Email"
-              text="munteksolutions@gmail.com"
-              link="mailto:munteksolutions@gmail.com"
-            />
-            <InfoLine
-              icon={BuildingOffice2Icon}
-              heading="Address"
-              text="Moi Avenue opposite Equity Bank, Mombasa"
-            />
-
-            {/* google map */}
-            <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700">
+            <div className="surface-card overflow-hidden">
               <iframe
                 title="Mombasa office map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12891.884369239197!2d39.6627589!3d-4.0575138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x184012719a4e4871%3A0x57f7b9e6f6bb4f6e!2sEquity%20Bank%2C%20Moi%20Ave%2C%20Mombasa!5e0!3m2!1sen!2ske!4v1695123456789!5m2!1sen!2ske"
                 width="100%"
-                height="280"
+                height="320"
                 loading="lazy"
                 style={{ border: 0 }}
-                className=" contrast-125"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </div>
+          </aside>
         </div>
       </section>
     </div>
   );
 }
 
-/* helper for phone / email / address rows */
-function InfoLine({ icon: Icon, heading, text, link }) {
+function Field({ label, name, type = 'text', value, onChange, required = false }) {
   return (
-    <div className="flex items-start gap-4">
-      <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center">
-        <Icon className="w-6 h-6 text-white" />
+    <div>
+      <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">{label}</label>
+      <input
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:focus:ring-sky-950"
+      />
+    </div>
+  );
+}
+
+function InfoLine({ icon, heading, text, link }) {
+  const Icon = icon;
+
+  const content = (
+    <>
+      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-50 text-sky-700 ring-1 ring-sky-100 dark:bg-sky-950/40 dark:text-sky-200 dark:ring-sky-900">
+        <Icon className="h-5 w-5" />
       </div>
       <div>
-        <h3 className="font-semibold text-slate-900 dark:text-white">
-          {heading}
-        </h3>
-        {link ? (
-          <a
-            href={link}
-            className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
-          >
-            {text}
-          </a>
-        ) : (
-          <p className="text-slate-600 dark:text-slate-300">{text}</p>
-        )}
+        <h3 className="font-extrabold text-slate-950 dark:text-white">{heading}</h3>
+        <p className="mt-1 text-slate-600 dark:text-slate-300">{text}</p>
       </div>
-    </div>
+    </>
+  );
+
+  return link ? (
+    <a href={link} className="flex gap-4 rounded-xl p-2 transition hover:bg-slate-50 dark:hover:bg-slate-900">
+      {content}
+    </a>
+  ) : (
+    <div className="flex gap-4 rounded-xl p-2">{content}</div>
   );
 }
