@@ -1,13 +1,11 @@
-import React from 'react';
+export default function LoadingSpinner({ size = 32, className = '' }) {
+  const dimension = typeof size === 'number' ? `${size}px` : size;
 
-export default function LoadingSpinner({ size = 8, className = '' }) {
   return (
-    <div
-      className={`inline-block ${className}`}
-      role="status"
-    >
+    <div className={`inline-block ${className}`} role="status">
       <svg
-        className={`animate-spin text-blue-600 h-${size} w-${size}`}
+        className="animate-spin text-blue-600"
+        style={{ height: dimension, width: dimension }}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

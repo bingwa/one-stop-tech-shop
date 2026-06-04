@@ -2,19 +2,20 @@ import { Link } from 'react-router-dom';
 
 export default function TermsOfService() {
   return (
-    <main className="bg-slate-50 dark:bg-slate-950">
-      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-        <div className="container-custom py-16">
-          <h1 className="max-w-3xl text-5xl font-black leading-tight text-slate-950 dark:text-white">Terms of Service</h1>
+    <main className="bg-white dark:bg-slate-950">
+      <section className="page-hero">
+        <div className="container-custom py-16 lg:py-20">
+          <span className="brand-chip">Terms</span>
+          <h1 className="mt-6 max-w-3xl text-5xl font-black leading-tight text-slate-950 dark:text-white">Terms of Service</h1>
           <p className="section-copy mt-5">Last updated: May 12, 2026</p>
         </div>
       </section>
 
       <section className="section-padding">
         <article className="surface-card container-custom max-w-4xl p-8 sm:p-10">
-          <div className="prose prose-slate max-w-none dark:prose-invert">
+          <div className="prose prose-slate max-w-none dark:prose-invert prose-headings:font-black prose-a:font-bold">
             <p>
-              By using this website or engaging Muntek Solutions for technology services, you agree to these terms.
+              By using this website or engaging MunTek Solutions for technology services, you agree to these terms.
             </p>
 
             <h2>Use of the website</h2>
@@ -31,7 +32,7 @@ export default function TermsOfService() {
 
             <h2>Intellectual property</h2>
             <p>
-              Site content, branding, layouts, and materials belong to Muntek Solutions unless otherwise credited. Client project ownership terms should be defined in the relevant project agreement.
+              Site content, branding, layouts, and materials belong to MunTek Solutions unless otherwise credited. Client project ownership terms should be defined in the relevant project agreement.
             </p>
 
             <h2>Limitation of liability</h2>

@@ -9,15 +9,16 @@ export default function ProjectFilter({ categories, onFilterChange }) {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 justify-center mb-8">
+    <div className="mb-8 flex flex-wrap justify-center gap-2">
       {['all', ...categories].map((cat) => (
         <button
           key={cat}
+          type="button"
           onClick={() => handleClick(cat)}
-          className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+          className={`min-h-11 border-2 px-4 py-2 text-sm font-bold transition-colors ${
             active === cat
-              ? 'bg-primary-blue text-black border-primary-blue'
-              : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'
+              ? 'border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950'
+              : 'border-slate-950 bg-white text-slate-800 hover:bg-slate-100 dark:border-white dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-900'
           }`}
         >
           {cat.charAt(0).toUpperCase() + cat.slice(1)}

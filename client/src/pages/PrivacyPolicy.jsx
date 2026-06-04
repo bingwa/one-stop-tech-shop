@@ -2,19 +2,20 @@ import { Link } from 'react-router-dom';
 
 export default function PrivacyPolicy() {
   return (
-    <main className="bg-slate-50 dark:bg-slate-950">
-      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-        <div className="container-custom py-16">
-          <h1 className="max-w-3xl text-5xl font-black leading-tight text-slate-950 dark:text-white">Privacy Policy</h1>
+    <main className="bg-white dark:bg-slate-950">
+      <section className="page-hero">
+        <div className="container-custom py-16 lg:py-20">
+          <span className="brand-chip">Privacy</span>
+          <h1 className="mt-6 max-w-3xl text-5xl font-black leading-tight text-slate-950 dark:text-white">Privacy Policy</h1>
           <p className="section-copy mt-5">Last updated: May 12, 2026</p>
         </div>
       </section>
 
       <section className="section-padding">
         <article className="surface-card container-custom max-w-4xl p-8 sm:p-10">
-          <div className="prose prose-slate max-w-none dark:prose-invert">
+          <div className="prose prose-slate max-w-none dark:prose-invert prose-headings:font-black prose-a:font-bold">
             <p>
-              At Muntek Solutions, we collect only the information needed to respond to inquiries, prepare quotes, provide support, and improve our services.
+              At MunTek Solutions, we collect only the information needed to respond to inquiries, prepare quotes, provide support, and improve our services.
             </p>
 
             <h2>Information we collect</h2>

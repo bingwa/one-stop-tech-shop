@@ -16,6 +16,12 @@ const serviceOptions = [
   'Not sure yet',
 ];
 
+const nextSteps = [
+  'We review the request and clarify missing details.',
+  'You get a practical next step, quote direction, or support path.',
+  'If the fit is right, we agree scope before build work starts.',
+];
+
 export default function Contact() {
   const [form, setForm] = useState({
     name: '',
@@ -52,7 +58,7 @@ export default function Contact() {
         throw new Error(text || 'Server error');
       }
 
-      setNotice('Message sent. We will get back to you shortly.');
+      setNotice('Message sent. We will review it and get back to you with a practical next step.');
       setForm({
         name: '',
         email: '',
@@ -61,48 +67,54 @@ export default function Contact() {
         message: '',
       });
     } catch (error) {
-      setNotice(`Error: ${error.message}`);
+      setNotice(`Could not send the message: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
+  const isSuccess = notice.startsWith('Message sent');
+
   return (
-    <div>
-      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-        <div className="container-custom py-20 lg:py-28">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-5xl font-black leading-tight text-slate-950 sm:text-6xl dark:text-white">
-              Tell us what you want to build, fix, or improve.
+    <div className="bg-white dark:bg-slate-950">
+      <section className="page-hero">
+        <div className="page-hero-grid">
+          <div>
+            <span className="brand-chip">Contact</span>
+            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.98] text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">
+              Tell us what needs to be built, fixed, or supported.
             </h1>
-            <p className="section-copy mx-auto mt-6 max-w-3xl">
-              Use one simple form for project inquiries, support requests, and quotes. We will review the details and respond with a practical next step.
+          </div>
+          <div className="max-w-3xl lg:ml-auto">
+            <p className="section-copy">
+              Use one form for project inquiries, support requests, and quote conversations. Clear details help us respond with a useful next step.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-slate-50 dark:bg-slate-900">
+      <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container-custom grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <form onSubmit={onSubmit} className="surface-card p-6 sm:p-8">
+          <form onSubmit={onSubmit} className="surface-card self-start p-6 sm:p-8">
             <div className="mb-8">
               <h2 className="text-3xl font-black text-slate-950 dark:text-white">Request a quote</h2>
-              <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">
-                Share the essentials. A clear first message helps us give you a better answer faster.
+              <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">
+                Share the essentials: what you need, the pressure point, timing, and what success should look like.
               </p>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Name" name="name" value={form.name} onChange={onChange} required />
-              <Field label="Email" name="email" type="email" value={form.email} onChange={onChange} required />
-              <Field label="Phone" name="phone" type="tel" value={form.phone} onChange={onChange} />
+              <Field label="Name" name="name" value={form.name} onChange={onChange} required autoComplete="name" />
+              <Field label="Email" name="email" type="email" value={form.email} onChange={onChange} required autoComplete="email" />
+              <Field label="Phone" name="phone" type="tel" value={form.phone} onChange={onChange} autoComplete="tel" />
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">Service</label>
+                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200" htmlFor="service">Service</label>
                 <select
+                  id="service"
                   name="service"
                   value={form.service}
                   onChange={onChange}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:focus:ring-sky-950"
+                  className="brand-input"
                 >
                   {serviceOptions.map((option) => (
                     <option key={option}>{option}</option>
@@ -112,31 +124,46 @@ export default function Contact() {
             </div>
 
             <div className="mt-5">
-              <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">Project details</label>
+              <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200" htmlFor="message">Project details</label>
               <textarea
+                id="message"
                 name="message"
                 rows="6"
                 value={form.message}
                 onChange={onChange}
                 required
-                className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:focus:ring-sky-950"
+                className="brand-input resize-y"
                 placeholder="What do you need, when do you need it, and what should the finished solution help you achieve?"
               />
             </div>
 
             <button type="submit" disabled={loading} className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60">
-              {loading ? 'Sending...' : 'Send message'}
+              {loading ? 'Sending message...' : 'Send message'}
               <ArrowRightIcon className="h-4 w-4" />
             </button>
 
-            {notice && (
-              <p className={`mt-4 text-center text-sm font-semibold ${notice.startsWith('Message sent') ? 'text-teal-700' : 'text-red-600'}`}>
-                {notice}
-              </p>
-            )}
+            <div aria-live="polite" aria-atomic="true">
+              {notice && (
+                <p className={`mt-4 border-2 p-3 text-center text-sm font-bold ${isSuccess ? 'border-blue-700 bg-blue-50 text-blue-950 dark:border-blue-300 dark:bg-blue-950 dark:text-blue-100' : 'border-red-700 bg-red-50 text-red-900 dark:border-red-300 dark:bg-red-950 dark:text-red-100'}`}>
+                  {notice}
+                </p>
+              )}
+            </div>
           </form>
 
           <aside className="space-y-5">
+            <div className="surface-card p-6 sm:p-8">
+              <h2 className="text-2xl font-black text-slate-950 dark:text-white">What happens next</h2>
+              <ol className="mt-6 space-y-4">
+                {nextSteps.map((step, index) => (
+                  <li key={step} className="flex min-w-0 gap-4">
+                    <span className="flex h-9 w-9 flex-none items-center justify-center bg-blue-600 text-sm font-black text-white">0{index + 1}</span>
+                    <span className="min-w-0 font-semibold leading-7 text-slate-700 dark:text-slate-300">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
             <div className="surface-card p-6 sm:p-8">
               <h2 className="text-2xl font-black text-slate-950 dark:text-white">Contact details</h2>
               <div className="mt-6 space-y-5">
@@ -165,17 +192,19 @@ export default function Contact() {
   );
 }
 
-function Field({ label, name, type = 'text', value, onChange, required = false }) {
+function Field({ label, name, type = 'text', value, onChange, required = false, autoComplete }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">{label}</label>
+      <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200" htmlFor={name}>{label}</label>
       <input
+        id={name}
         name={name}
         type={type}
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:focus:ring-sky-950"
+        autoComplete={autoComplete}
+        className="brand-input"
       />
     </div>
   );
@@ -186,21 +215,21 @@ function InfoLine({ icon, heading, text, link }) {
 
   const content = (
     <>
-      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-50 text-sky-700 ring-1 ring-sky-100 dark:bg-sky-950/40 dark:text-sky-200 dark:ring-sky-900">
+      <div className="brand-icon h-11 w-11">
         <Icon className="h-5 w-5" />
       </div>
-      <div>
-        <h3 className="font-extrabold text-slate-950 dark:text-white">{heading}</h3>
-        <p className="mt-1 text-slate-600 dark:text-slate-300">{text}</p>
+      <div className="min-w-0">
+        <h3 className="font-black text-slate-950 dark:text-white">{heading}</h3>
+        <p className="mt-1 break-words text-slate-700 dark:text-slate-300">{text}</p>
       </div>
     </>
   );
 
   return link ? (
-    <a href={link} className="flex gap-4 rounded-xl p-2 transition hover:bg-slate-50 dark:hover:bg-slate-900">
+    <a href={link} className="flex min-w-0 gap-4 border border-transparent p-2 transition hover:border-slate-950 dark:hover:border-white">
       {content}
     </a>
   ) : (
-    <div className="flex gap-4 rounded-xl p-2">{content}</div>
+    <div className="flex min-w-0 gap-4 p-2">{content}</div>
   );
 }

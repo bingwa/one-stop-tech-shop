@@ -11,7 +11,7 @@ import Sitemap from './pages/Sitemap';
 
 function App() {
   return (
-    <div className="min-h-screen bg-stone-50 text-slate-950 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50">
+    <div className="min-h-screen bg-white text-slate-950 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50">
       <Navbar />
       <main>
         <Routes>

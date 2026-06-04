@@ -6,8 +6,10 @@ export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => {
+        if (typeof window === 'undefined') return 'light';
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) return savedTheme;
+        if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+        if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) return 'dark';
         return 'light';
     });
 
@@ -15,7 +17,11 @@ export const ThemeProvider = ({ children }) => {
         const root = window.document.documentElement;
         root.classList.remove('light', 'dark');
         root.classList.add(theme);
-        localStorage.setItem('theme', theme);
+        try {
+            localStorage.setItem('theme', theme);
+        } catch {
+            // Ignore storage failures; the active DOM theme still updates.
+        }
     }, [theme]);
 
     const toggleTheme = () => {

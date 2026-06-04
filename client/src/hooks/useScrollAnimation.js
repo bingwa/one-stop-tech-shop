@@ -17,6 +17,8 @@ export const useScrollAnimation = (threshold = 0.1) => {
 export const initializeScrollAnimations = () => {
   if (typeof window === 'undefined') return;  // guard for SSR
 
+  document.documentElement.classList.add('js-scroll-ready');
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

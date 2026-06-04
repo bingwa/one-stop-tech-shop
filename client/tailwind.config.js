@@ -26,17 +26,17 @@ export default {
           900: '#1e3a8a',
         },
         secondary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          500: '#10b981',
-          600: '#059669',
-          700: '#047857',
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          500: '#64748b',
+          700: '#334155',
+          950: '#020617',
         },
         accent: {
-          50: '#fef3c7',
-          100: '#fde68a',
-          500: '#f59e0b',
-          600: '#d97706',
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
         },
         dark: {
           50: '#f8fafc',
@@ -52,8 +52,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Archivo', 'system-ui', 'sans-serif'],
+        heading: ['Archivo', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',

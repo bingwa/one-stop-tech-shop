@@ -3,34 +3,49 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRightIcon,
   CheckCircleIcon,
-  HeartIcon,
-  LightBulbIcon,
-  ShieldCheckIcon,
-  TrophyIcon,
 } from '@heroicons/react/24/outline';
 import { initializeScrollAnimations } from '../hooks/useScrollAnimation';
-import ImageSequence from '../components/common/ImageSequence';
 
-const values = [
+const deliverySteps = [
   {
-    icon: LightBulbIcon,
-    title: 'Practical innovation',
-    text: 'We choose modern tools because they solve real problems, not because they look impressive on a proposal.',
+    title: 'Clarify the business problem',
+    text: 'We start with the workflow, users, budget, and support needs before choosing the build approach.',
   },
   {
-    icon: HeartIcon,
-    title: 'Client-first delivery',
-    text: 'We listen closely, communicate clearly, and build around the business outcome you actually need.',
+    title: 'Map the required pages and features',
+    text: 'We turn the idea into a practical scope: screens, forms, data, integrations, hosting, and handover needs.',
   },
   {
-    icon: TrophyIcon,
-    title: 'Reliable quality',
-    text: 'We care about clean interfaces, stable code, secure forms, and handovers that make sense.',
+    title: 'Build for maintenance',
+    text: 'We keep the system understandable, test the important paths, and avoid choices that make future support harder.',
   },
   {
-    icon: ShieldCheckIcon,
-    title: 'Long-term support',
-    text: 'Launch is not the end. We help maintain, improve, and support systems as your team grows.',
+    title: 'Launch with access and support in place',
+    text: 'We check mobile and desktop, set up deployment properly, hand over access, and stay available after launch.',
+  },
+];
+
+const launchChecks = [
+  'The business problem is clear before build time is spent.',
+  'Pages, features, forms, and data flows are agreed early.',
+  'Mobile and desktop layouts are checked before go-live.',
+  'Hosting, domains, deployment, and backups are treated as part of delivery.',
+  'Access, credentials, and documentation are handed over in a usable way.',
+  'Support expectations are discussed before the project is considered complete.',
+];
+
+const protectionItems = [
+  {
+    title: 'Unclear scope',
+    text: 'We reduce guesswork by writing down what is included, what can wait, and what needs a separate phase.',
+  },
+  {
+    title: 'Fragile launches',
+    text: 'Deployment, domains, hosting, forms, and device checks are handled as real delivery tasks, not last-minute chores.',
+  },
+  {
+    title: 'Hard-to-support systems',
+    text: 'We keep structure, access, and documentation clear so updates and fixes do not depend on memory.',
   },
 ];
 
@@ -39,108 +54,159 @@ const team = [
     name: 'Brian Munyao',
     role: 'Founder & Lead Developer',
     photo: '/assets/DP.jpg',
-    skills: ['React', 'Node.js', 'Python', 'PostgreSQL', 'Supabase'],
-    bio: 'Brian leads full-stack delivery, turning business workflows into web applications, dashboards, and dependable digital products.',
+    skills: ['Web apps', 'Architecture', 'Databases', 'Deployments', 'Support'],
+    ownership: 'Architecture, backend delivery, web application builds, database structure, deployment, and technical handover.',
+    bio: 'Brian turns business workflows into web applications, dashboards, and maintainable systems that can be supported after launch.',
   },
   {
     name: 'Nathan Munyao',
     role: 'Founder & CEO',
-    skills: ['React Native', 'Flutter', 'Strategy', 'Operations'],
-    bio: 'Nathan guides mobile delivery, client strategy, and the practical operations that keep projects moving from idea to launch.',
+    skills: ['Mobile apps', 'Client coordination', 'Product thinking', 'QA testing', 'Operations'],
+    ownership: 'Client coordination, mobile delivery, product decisions, QA review, and keeping each project moving through launch.',
+    bio: 'Nathan keeps the work tied to the business need, the people using the system, and the practical steps needed to get it live.',
   },
 ];
 
-const aboutFrames = [
-  '/assets/about-animation/transparent/frame-01.png',
-  '/assets/about-animation/transparent/frame-02.png',
-  '/assets/about-animation/transparent/frame-03.png',
-  '/assets/about-animation/transparent/frame-04.png',
+const capabilities = [
+  'Modern web and mobile builds',
+  'Cloud launch support',
+  'Network and device knowledge',
+  'Clear post-launch support',
 ];
 
 export default function About() {
   useEffect(() => initializeScrollAnimations(), []);
 
   return (
-    <div>
-      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-        <div className="container-custom grid gap-12 py-20 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:py-28">
+    <div className="bg-white dark:bg-slate-950">
+      <section className="page-hero">
+        <div className="page-hero-grid">
           <div className="animate-on-scroll">
-            <h1 className="text-5xl font-black leading-tight text-slate-950 sm:text-6xl dark:text-white">
-              A Kenyan technology partner for teams that need useful systems.
+            <span className="brand-chip">About MunTek</span>
+            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.98] text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">
+              A compact Kenyan team for practical digital systems.
             </h1>
-            <p className="section-copy mt-6">
-              We are developers, problem solvers, and IT practitioners based in Kenya. Our work spans custom software, mobile apps, cloud deployment, networks, and hands-on support.
+          </div>
+          <div className="animate-on-scroll max-w-3xl lg:ml-auto">
+            <p className="section-copy">
+              MunTek Solutions works across websites, mobile apps, cloud deployment, networks, and support. The goal is simple: build systems Kenyan businesses can understand, use, and maintain.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to="/services" className="btn-primary">
-                View services
+              <Link to="/contact" className="btn-primary">
+                Request a quote
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
-              <Link to="/contact" className="btn-secondary">Talk to us</Link>
+              <Link to="/services" className="btn-secondary">View services</Link>
             </div>
-          </div>
-
-          <AboutHeroSequence />
-        </div>
-      </section>
-
-      <section className="section-padding bg-slate-50 dark:bg-slate-900">
-        <div className="container-custom grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="animate-on-scroll">
-            <h2 className="section-title">From web development to complete IT solutions.</h2>
-          </div>
-          <div className="animate-on-scroll space-y-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
-            <p>
-              Muntek Solutions started with a simple belief: Kenyan businesses deserve technology that is clear, well-built, and reachable when support is needed.
-            </p>
-            <p>
-              What began as website and application development has grown into a broader service covering mobile apps, networks, cloud deployment, technical support, and consulting.
-            </p>
-            <p>
-              We keep our work grounded in real business needs. That means understanding the people using the system, the environment it runs in, and the support required after launch.
+            <p className="mt-4 max-w-2xl text-sm font-bold leading-6 text-slate-700 dark:text-slate-300">
+              Tell us what you need; we'll reply with next steps, a cost range, or a better route.
             </p>
           </div>
         </div>
       </section>
 
       <section className="section-padding bg-white dark:bg-slate-950">
-        <div className="container-custom">
-          <div className="mx-auto mb-14 max-w-3xl text-center animate-on-scroll">
-            <h2 className="section-title">The principles behind the work.</h2>
+        <div className="container-custom grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div className="animate-on-scroll">
+            <h2 className="section-title max-w-xl">Built around the work after launch.</h2>
           </div>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {values.map((value) => (
-              <div key={value.title} className="surface-card surface-card-hover animate-on-scroll p-6">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-sky-700 ring-1 ring-sky-100 dark:bg-sky-950/40 dark:text-sky-200 dark:ring-sky-900">
-                  <value.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-xl font-extrabold text-slate-950 dark:text-white">{value.title}</h3>
-                <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">{value.text}</p>
-              </div>
-            ))}
+          <div className="animate-on-scroll grid gap-4 text-lg font-medium leading-8 text-slate-700 dark:text-slate-300">
+            <p>
+              MunTek started with a simple belief: businesses deserve technology that is clear, well-built, and reachable when support is needed.
+            </p>
+            <p>
+              What began as website and application development now includes mobile apps, networks, cloud deployment, technical support, and consulting.
+            </p>
+            <p>
+              We keep projects grounded in the people using the system, the environment it runs in, and the support needed after handover.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="section-padding border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900">
+      <section className="section-padding border-y-4 border-slate-950 bg-[#eff6ff] dark:border-white dark:bg-slate-900">
         <div className="container-custom">
-          <div className="mb-14 flex flex-col gap-4 animate-on-scroll lg:flex-row lg:items-end lg:justify-between">
+          <div className="mb-12 grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+            <h2 className="section-title animate-on-scroll max-w-2xl">How we work before anything goes live.</h2>
+            <p className="section-copy animate-on-scroll max-w-3xl lg:ml-auto">
+              A useful system is not just designed and shipped. It is scoped, checked, deployed, handed over, and supported in a way the business can live with.
+            </p>
+          </div>
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="animate-on-scroll border-2 border-slate-950 bg-white p-6 dark:border-white dark:bg-slate-950">
+              <h3 className="text-2xl font-black text-slate-950 dark:text-white">Our handover standard</h3>
+              <div className="mt-6 grid gap-5">
+                {deliverySteps.map((step, index) => (
+                  <article key={step.title} className="grid gap-4 border-t-2 border-slate-950 pt-5 sm:grid-cols-[3.5rem_1fr] dark:border-white">
+                    <span className="flex h-12 w-12 items-center justify-center bg-slate-950 text-lg font-black text-blue-400 dark:bg-white dark:text-slate-950">
+                      {index + 1}
+                    </span>
+                    <div>
+                      <h4 className="text-xl font-black text-slate-950 dark:text-white">{step.title}</h4>
+                      <p className="mt-2 leading-7 text-slate-700 dark:text-slate-300">{step.text}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="animate-on-scroll bg-slate-950 p-6 text-white dark:border-2 dark:border-white">
+              <h3 className="text-2xl font-black">What we check before go-live</h3>
+              <ul className="mt-6 grid gap-3">
+                {launchChecks.map((item) => (
+                  <li key={item} className="flex gap-3 border border-white/20 bg-white/5 p-4 text-sm font-bold leading-6 text-slate-100">
+                    <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-none text-blue-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-white dark:bg-slate-950">
+        <div className="container-custom">
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+            <div className="animate-on-scroll">
+              <h2 className="section-title max-w-xl">What we protect you from.</h2>
+              <p className="section-copy mt-5 max-w-xl">
+                Growing businesses do not need extra complexity. They need clear scope, dependable launch work, and a system that can be adjusted later.
+              </p>
+            </div>
+            <div className="animate-on-scroll grid gap-0 border-2 border-slate-950 bg-[#eff6ff] dark:border-white dark:bg-slate-900">
+              {protectionItems.map((item) => (
+                <article key={item.title} className="grid gap-3 border-b-2 border-slate-950 p-5 last:border-b-0 sm:grid-cols-[12rem_1fr] dark:border-white">
+                  <h3 className="text-xl font-black text-slate-950 dark:text-white">{item.title}</h3>
+                  <p className="leading-7 text-slate-700 dark:text-slate-300">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding border-t-2 border-slate-950 bg-white dark:border-white dark:bg-slate-950">
+        <div className="container-custom">
+          <div className="mb-12 flex flex-col gap-4 animate-on-scroll lg:flex-row lg:items-end lg:justify-between">
             <div>
               <h2 className="section-title">People behind the build.</h2>
             </div>
-            <p className="section-copy max-w-2xl">A compact team with hands-on ownership across strategy, design, development, and support.</p>
+            <p className="section-copy max-w-2xl">A compact team with hands-on ownership across strategy, development, delivery, and support.</p>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {team.map((member) => (
               <article key={member.name} className="surface-card animate-on-scroll grid gap-6 p-6 sm:grid-cols-[10rem_1fr]">
                 <TeamAvatar name={member.name} role={member.role} photo={member.photo} />
-                <div>
-                  <h3 className="text-2xl font-extrabold text-slate-950 dark:text-white">{member.name}</h3>
-                  <p className="mt-1 font-bold text-sky-700 dark:text-sky-300">{member.role}</p>
-                  <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">{member.bio}</p>
+                <div className="min-w-0">
+                  <h3 className="text-2xl font-black text-slate-950 dark:text-white">{member.name}</h3>
+                  <p className="mt-1 font-bold text-blue-700 dark:text-blue-300">{member.role}</p>
+                  <p className="mt-4 leading-7 text-slate-700 dark:text-slate-300">{member.bio}</p>
+                  <p className="mt-4 border-2 border-slate-950 bg-[#eff6ff] p-4 text-sm font-bold leading-6 text-slate-800 dark:border-white dark:bg-slate-950 dark:text-slate-200">
+                    Owns: {member.ownership}
+                  </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {member.skills.map((skill) => (
-                      <span key={skill} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-700 ring-1 ring-slate-200 dark:bg-slate-950 dark:text-slate-200 dark:ring-slate-800">
+                      <span key={skill} className="border border-slate-950 bg-white px-3 py-1 text-xs font-bold text-slate-800 dark:border-white dark:bg-slate-950 dark:text-slate-200">
                         {skill}
                       </span>
                     ))}
@@ -152,41 +218,24 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section-padding bg-white dark:bg-slate-950">
-        <div className="container-custom">
-          <div className="surface-card animate-on-scroll p-8 sm:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-              <div>
-                <h2 className="section-title">What we bring to each project.</h2>
-                <p className="section-copy mt-5">A focused blend of development, IT support, and practical business thinking.</p>
+      <section className="section-padding bg-slate-950 text-white">
+        <div className="container-custom grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+          <div className="animate-on-scroll">
+            <h2 className="max-w-3xl text-3xl font-black leading-tight sm:text-5xl">What we bring to each project.</h2>
+            <p className="mt-5 max-w-2xl text-lg font-semibold leading-8 text-slate-300">
+              A focused blend of development, IT support, and practical business thinking.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {capabilities.map((item) => (
+              <div key={item} className="animate-on-scroll flex min-w-0 items-center gap-3 border border-white/20 bg-white/5 p-4 font-bold text-slate-200">
+                <CheckCircleIcon className="h-5 w-5 flex-none text-blue-400" />
+                <span className="min-w-0">{item}</span>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {['Modern web and mobile builds', 'Cloud launch support', 'Network and device knowledge', 'Clear post-launch support'].map((item) => (
-                  <div key={item} className="flex items-center gap-3 rounded-xl bg-slate-50 p-4 font-bold text-slate-700 dark:bg-slate-900 dark:text-slate-200">
-                    <CheckCircleIcon className="h-5 w-5 text-teal-600" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-function AboutHeroSequence() {
-  return (
-    <div className="surface-card animate-on-scroll overflow-hidden border-sky-100 bg-white/40 p-4 shadow-2xl shadow-sky-950/10 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:shadow-sky-950/30">
-      <div className="relative overflow-hidden rounded-[2rem] p-2">
-        <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_30%_10%,rgba(37,99,235,0.16),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(20,184,166,0.14),transparent_24%)]" />
-        <ImageSequence
-          frames={aboutFrames}
-          alt="Muntek Solutions systems overview illustration"
-          className="mx-auto max-w-[34rem]"
-        />
-      </div>
     </div>
   );
 }
@@ -199,17 +248,17 @@ function TeamAvatar({ name, role, photo }) {
     .slice(0, 2);
 
   return (
-    <div className="relative h-40 w-40 overflow-hidden rounded-2xl border border-slate-200 bg-[radial-gradient(circle_at_25%_20%,rgba(14,165,233,0.22),transparent_32%),linear-gradient(135deg,#ffffff,#f1f5f9)] p-4 dark:border-white/10 dark:bg-[radial-gradient(circle_at_25%_20%,rgba(56,189,248,0.20),transparent_32%),linear-gradient(135deg,#020617,#111827)]">
+    <div className="relative h-40 w-40 overflow-hidden border-2 border-slate-950 bg-[#eff6ff] p-4 dark:border-white dark:bg-slate-950">
       <div className="flex h-full flex-col justify-end">
         {photo ? (
-          <img src={photo} alt={name} className="mb-4 h-20 w-20 rounded-2xl object-cover shadow-lg ring-1 ring-slate-200 dark:ring-white/10" />
+          <img src={photo} alt={name} className="mb-4 h-20 w-20 object-cover ring-2 ring-slate-950 dark:ring-white" />
         ) : (
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-950 text-2xl font-black text-white shadow-lg dark:bg-white dark:text-slate-950">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center bg-slate-950 text-2xl font-black text-white dark:bg-white dark:text-slate-950">
             {initials}
           </div>
         )}
         <p className="text-sm font-black text-slate-950 dark:text-white">{name}</p>
-        <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">{role}</p>
+        <p className="mt-1 text-xs font-bold text-slate-600 dark:text-slate-400">{role}</p>
       </div>
     </div>
   );
