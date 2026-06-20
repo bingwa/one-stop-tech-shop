@@ -15,6 +15,16 @@ export default {
           DEFAULT: '#e2e8f0', // gray-200
           700: '#334155', // dark border variant for dark theme references
         },
+        // Engineered / blueprint tokens (RGB triplets → alpha utilities work)
+        paper: 'rgb(var(--paper) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        well: 'rgb(var(--well) / <alpha-value>)',
+        ink: 'rgb(var(--ink) / <alpha-value>)',
+        'ink-muted': 'rgb(var(--ink-muted) / <alpha-value>)',
+        line: 'rgb(var(--line) / <alpha-value>)',
+        'line-strong': 'rgb(var(--line-strong) / <alpha-value>)',
+        signal: 'rgb(var(--signal) / <alpha-value>)',
+        'signal-strong': 'rgb(var(--signal-strong) / <alpha-value>)',
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',
@@ -53,7 +63,8 @@ export default {
       },
       fontFamily: {
         sans: ['Archivo', 'system-ui', 'sans-serif'],
-        heading: ['Archivo', 'system-ui', 'sans-serif'],
+        heading: ['Archivo Expanded', 'Archivo', 'system-ui', 'sans-serif'],
+        mono: ['Martian Mono', 'ui-monospace', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',

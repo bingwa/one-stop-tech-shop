@@ -1,26 +1,56 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@85..115,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Expanded:wght@500;600;700;800;900&family=Martian+Mono:wght@300;400;500;600&display=swap');
 
+/*
+  MunTek Solutions — Engineered / Blueprint system
+  Tokens are RGB triplets so Tailwind alpha utilities (text-ink/70) keep working.
+*/
 @layer base {
-  * {
-    @apply border-border;
+  :root {
+    --paper: 239 241 243;        /* cool technical off-white, deliberately not cream */
+    --surface: 255 255 255;      /* raised panels */
+    --well: 232 235 239;         /* inset wells */
+    --ink: 19 22 29;             /* blue-black, primary text */
+    --ink-muted: 77 85 96;       /* secondary text, AA on paper */
+    --line: 203 209 217;         /* hairline rules */
+    --line-strong: 173 181 191;  /* emphasized rules */
+    --signal: 224 110 26;        /* instrument amber, marks + fills */
+    --signal-strong: 154 74 10;  /* amber for text/links on light, AA */
   }
-  
+
+  .dark {
+    --paper: 16 19 25;
+    --surface: 24 28 36;
+    --well: 30 35 44;
+    --ink: 231 234 238;
+    --ink-muted: 154 163 175;
+    --line: 42 47 57;
+    --line-strong: 58 65 78;
+    --signal: 242 145 58;
+    --signal-strong: 242 145 58;
+  }
+
+  * {
+    @apply border-line;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-white text-slate-950 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50;
+    @apply bg-paper text-ink;
     font-family: 'Archivo', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
     overflow-wrap: break-word;
+    transition: background-color 300ms var(--ease-out), color 300ms var(--ease-out);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Archivo', system-ui, sans-serif;
-    letter-spacing: 0;
+    font-family: 'Archivo Expanded', 'Archivo', system-ui, sans-serif;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -29,207 +59,297 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-4 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-blue-500 dark:ring-offset-slate-950;
+    outline: 2px solid rgb(var(--signal));
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background: rgb(var(--signal) / 0.22);
+    color: rgb(var(--ink));
   }
 }
 
 @layer components {
   .container-custom {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-[78rem] px-5 sm:px-8 lg:px-10;
   }
 
   .section-padding {
-    @apply py-16 lg:py-24;
+    @apply py-20 lg:py-28;
+  }
+
+  /* ---- Mono spec language ---------------------------------------- */
+  .spec {
+    font-family: 'Martian Mono', ui-monospace, monospace;
+    @apply text-[0.7rem] font-medium uppercase leading-none tracking-[0.18em] text-ink-muted;
+  }
+
+  .spec-signal {
+    color: rgb(var(--signal-strong));
+  }
+
+  .num {
+    font-family: 'Martian Mono', ui-monospace, monospace;
+    font-feature-settings: 'tnum';
+  }
+
+  /* ---- Headings -------------------------------------------------- */
+  .display {
+    font-family: 'Archivo Expanded', 'Archivo', sans-serif;
+    @apply font-extrabold leading-[0.95] tracking-[-0.03em];
   }
 
   .section-title {
-    @apply text-3xl font-black leading-tight tracking-normal text-slate-950 sm:text-4xl lg:text-5xl dark:text-white;
+    @apply display text-[clamp(1.9rem,3.6vw,3.1rem)] text-ink;
   }
 
   .section-copy {
-    @apply text-lg font-medium leading-8 text-slate-700 dark:text-slate-300;
+    @apply text-lg leading-8 text-ink-muted;
   }
 
-  .surface-card {
-    @apply border-2 border-slate-950 bg-white shadow-[6px_6px_0_#0f172a] transition duration-300 dark:border-white dark:bg-slate-900 dark:shadow-[6px_6px_0_#ffffff];
+  /* ---- Surfaces -------------------------------------------------- */
+  .panel {
+    @apply border border-line bg-surface;
   }
 
-  .surface-card-hover {
-    @apply hover:-translate-y-1 hover:shadow-[3px_3px_0_#0f172a] dark:hover:shadow-[3px_3px_0_#ffffff];
+  .well {
+    @apply border border-line bg-well;
   }
 
-  .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 border-2 border-slate-950 bg-slate-950 px-6 py-3 text-sm font-bold text-white shadow-[4px_4px_0_#2563eb] transition duration-300 hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-slate-950 hover:shadow-[2px_2px_0_#2563eb] dark:border-white dark:bg-white dark:text-slate-950 dark:hover:bg-white;
+  /* Registration / crop marks — the engineering-drawing signature */
+  .registered {
+    position: relative;
   }
-  
-  .btn-secondary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 border-2 border-slate-950 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition duration-300 hover:bg-slate-100 dark:border-white dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900;
+  .registered::before,
+  .registered::after {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    pointer-events: none;
+    z-index: 1;
   }
-  
-  .btn-soft {
-    @apply inline-flex min-h-10 items-center justify-center gap-2 border-2 border-slate-950 bg-white px-4 py-2 text-sm font-bold text-slate-950 transition duration-300 hover:bg-slate-100 dark:border-white dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900;
+  .registered::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1.5px solid rgb(var(--signal));
+    border-left: 1.5px solid rgb(var(--signal));
+  }
+  .registered::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1.5px solid rgb(var(--signal));
+    border-right: 1.5px solid rgb(var(--signal));
   }
 
+  /* ---- Buttons --------------------------------------------------- */
+  .btn-signal {
+    @apply inline-flex min-h-12 items-center justify-center gap-2.5 bg-ink px-6 text-sm font-bold tracking-tight text-paper;
+    transition: transform 160ms var(--ease-out), box-shadow 220ms var(--ease-out), background-color 200ms var(--ease-out);
+    box-shadow: inset 0 0 0 1px rgb(var(--ink)), 4px 4px 0 0 rgb(var(--signal));
+  }
+  .btn-signal:hover {
+    box-shadow: inset 0 0 0 1px rgb(var(--ink)), 6px 6px 0 0 rgb(var(--signal));
+  }
+  .btn-signal:active {
+    transform: translate(2px, 2px) scale(0.99);
+    box-shadow: inset 0 0 0 1px rgb(var(--ink)), 2px 2px 0 0 rgb(var(--signal));
+  }
+
+  .btn-outline {
+    @apply inline-flex min-h-12 items-center justify-center gap-2.5 border border-line-strong bg-surface px-6 text-sm font-bold tracking-tight text-ink;
+    transition: transform 160ms var(--ease-out), border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+  }
+  .btn-outline:hover {
+    @apply border-ink bg-well;
+  }
+  .btn-outline:active {
+    transform: scale(0.985);
+  }
+
+  /* ---- Chips / fields -------------------------------------------- */
+  .chip {
+    font-family: 'Martian Mono', ui-monospace, monospace;
+    @apply inline-flex items-center border border-line px-2.5 py-1 text-[0.68rem] font-medium tracking-tight text-ink-muted;
+  }
+
+  .field {
+    @apply w-full border border-line-strong bg-surface px-4 py-3 text-ink outline-none transition placeholder:text-ink-muted;
+  }
+  .field:focus {
+    border-color: rgb(var(--signal));
+    box-shadow: 0 0 0 2px rgb(var(--signal) / 0.25);
+  }
+
+  /* ---- Legacy class names, repointed to the blueprint system ----- */
   .page-hero {
-    @apply relative border-b-4 border-slate-950 bg-[#eff6ff] dark:border-white dark:bg-slate-950;
+    @apply relative overflow-hidden border-b border-line bg-paper;
   }
-
   .page-hero-grid {
-    @apply container-custom grid gap-10 py-16 lg:grid-cols-[0.88fr_1.12fr] lg:items-end lg:py-20;
+    @apply container-custom relative grid gap-10 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:items-end lg:py-20;
   }
-
   .brand-panel {
-    @apply border-2 border-slate-950 bg-[#eff6ff] p-5 dark:border-white dark:bg-slate-900;
+    @apply border border-line bg-well p-5;
   }
-
   .brand-icon {
-    @apply flex h-12 w-12 flex-none items-center justify-center bg-slate-950 text-blue-400 dark:bg-white dark:text-slate-950;
+    @apply flex h-12 w-12 flex-none items-center justify-center border border-ink bg-ink text-paper;
   }
-
   .brand-chip {
-    @apply inline-flex min-h-9 items-center border-2 border-slate-950 bg-blue-600 px-3 py-1.5 text-xs font-black text-white dark:border-white dark:bg-blue-500;
+    font-family: 'Martian Mono', ui-monospace, monospace;
+    @apply inline-flex min-h-8 items-center border border-line bg-surface px-3 py-1.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-signal-strong;
   }
-
   .brand-input {
-    @apply w-full border-2 border-slate-950 bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-slate-950 focus:ring-4 focus:ring-blue-500 dark:border-white dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-400 dark:focus:ring-blue-500;
+    @apply field;
+  }
+  .surface-card {
+    @apply border border-line bg-surface;
+  }
+  .surface-card-hover {
+    @apply transition-colors duration-200 hover:border-ink hover:bg-well;
+  }
+  .btn-primary {
+    @apply btn-signal;
+  }
+  .btn-secondary,
+  .btn-soft {
+    @apply btn-outline;
   }
 }
 
 @layer utilities {
+  :root {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Blueprint grid field */
+  .bp-grid {
+    background-image:
+      linear-gradient(rgb(var(--ink) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--ink) / 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .bp-grid-lg {
+    background-image:
+      linear-gradient(rgb(var(--ink) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--ink) / 0.06) 1px, transparent 1px);
+    background-size: 88px 88px;
+  }
+
+  /* Scroll reveal — enhances an already-visible default (JS-gated) */
   .animate-on-scroll {
-    @apply transition-all duration-700 ease-out;
+    transition: transform 720ms var(--ease-out-expo), opacity 720ms var(--ease-out-expo);
   }
-
   .js-scroll-ready .animate-on-scroll {
-    @apply translate-y-8 opacity-0;
-  }
-  
-  .js-scroll-ready .animate-on-scroll.in-view {
-    @apply translate-y-0 opacity-100;
-  }
-
-  .animate-float-slow {
-    animation: floatSlow 6s ease-in-out infinite;
-  }
-
-  .animate-float-delayed {
-    animation: floatSlow 7s ease-in-out 1.2s infinite;
-  }
-
-  .animate-pulse-soft {
-    animation: pulseSoft 2.8s ease-in-out infinite;
-  }
-
-  .animate-cursor-blink {
-    animation: cursorBlink 1.1s steps(2, start) infinite;
-  }
-
-  .image-sequence-float {
-    animation: imageSequenceFloat 8s ease-in-out infinite;
-  }
-
-  .image-sequence-frame {
-    animation: imageSequenceFade 8s ease-in-out infinite;
     opacity: 0;
+    transform: translateY(22px);
   }
-}
-
-@keyframes floatSlow {
-  0%, 100% {
+  .js-scroll-ready .animate-on-scroll.in-view {
+    opacity: 1;
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(-12px);
+
+  /* Measurement tick that draws its underline on reveal */
+  .tick-rule {
+    position: relative;
+  }
+  .tick-rule::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.6rem;
+    height: 2px;
+    width: 100%;
+    background: rgb(var(--signal));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 760ms 0.15s var(--ease-out-expo);
+  }
+  .in-view .tick-rule::after {
+    transform: scaleX(1);
   }
 }
 
-@keyframes pulseSoft {
-  0%, 100% {
-    opacity: 0.65;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.08);
+/* Redline correction mark — enacts the brand promise on "guesswork" */
+.redline {
+  position: relative;
+  white-space: nowrap;
+  color: rgb(var(--ink-muted));
+}
+.redline::after {
+  content: '';
+  position: absolute;
+  left: -0.05em;
+  right: -0.05em;
+  top: 52%;
+  height: 0.12em;
+  background: rgb(var(--signal));
+  transform: scaleX(0) skewX(-12deg);
+  transform-origin: left center;
+}
+.in-view .redline::after {
+  animation: redlineDraw 0.6s 0.5s var(--ease-out-expo) forwards;
+}
+
+@keyframes redlineDraw {
+  to {
+    transform: scaleX(1) skewX(-12deg);
   }
 }
 
-@keyframes cursorBlink {
-  0%, 45% {
-    opacity: 1;
-  }
-  46%, 100% {
-    opacity: 0;
-  }
+/* Blueprint art: render-in fade + telemetry pulse */
+.bp-draw {
+  animation: bpFade 1.2s var(--ease-out-expo) both;
+}
+@keyframes bpFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.bp-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bpPulse 3s ease-in-out infinite;
+}
+@keyframes bpPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1); }
 }
 
-@keyframes imageSequenceFloat {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-10px) scale(1.015);
-  }
+.blink {
+  animation: blink 1.15s steps(2, start) infinite;
 }
-
-@keyframes imageSequenceFade {
-  0% {
-    opacity: 0;
-  }
-  5%, 24% {
-    opacity: 1;
-  }
-  31%, 100% {
-    opacity: 0;
-  }
+@keyframes blink {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
   .js-scroll-ready .animate-on-scroll {
     opacity: 1;
     transform: none;
   }
-
-  .image-sequence-float,
-  .image-sequence-frame {
-    animation: none;
+  .tick-rule::after,
+  .redline::after {
+    transform: scaleX(1) skewX(-12deg);
   }
-
-  .image-sequence-frame {
-    opacity: 0;
-  }
-
-  .image-sequence-frame:first-child {
-    opacity: 1;
-  }
+  .tick-rule::after { transform: scaleX(1); }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-slate-800;
-}
-
+/* Scrollbar */
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: rgb(var(--well)); }
 ::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-slate-300 dark:bg-slate-700;
+  background: rgb(var(--line-strong));
+  border: 3px solid rgb(var(--well));
 }
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400 dark:bg-slate-600;
-}
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--ink-muted)); }

@@ -2,148 +2,278 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRightIcon,
+  ArrowUpRightIcon,
   CloudArrowUpIcon,
   CodeBracketIcon,
   DevicePhoneMobileIcon,
-  MapPinIcon,
-  ShieldCheckIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
 import { initializeScrollAnimations } from '../hooks/useScrollAnimation';
+import { HeroBackdrop, SystemSchematic } from '../components/common/BlueprintArt';
 
 const services = [
   {
+    ref: 'SVC-01',
     icon: CodeBracketIcon,
-    title: 'Websites that sell the work',
-    text: 'Public sites, portals, dashboards, and business apps mapped to real workflows.',
+    title: 'Websites and apps that sell the work',
+    text: 'Public sites, portals, dashboards, and business apps mapped to the workflows your team actually runs.',
+    featured: true,
   },
   {
+    ref: 'SVC-02',
     icon: DevicePhoneMobileIcon,
     title: 'Mobile tools for the field',
-    text: 'Apps for customers, staff, field teams, bookings, reporting, and daily movement.',
+    text: 'Apps for customers, staff, bookings, reporting, and daily movement.',
   },
   {
+    ref: 'SVC-03',
     icon: CloudArrowUpIcon,
     title: 'Launch support that holds',
-    text: 'Hosting, SSL, backups, databases, release checks, and deployment support.',
+    text: 'Hosting, SSL, backups, databases, release checks, and deployment.',
   },
   {
+    ref: 'SVC-04',
     icon: WrenchScrewdriverIcon,
     title: 'IT fixes with a plan',
     text: 'Network setup, diagnostics, software support, maintenance, and uptime planning.',
   },
 ];
 
-const process = [
-  ['01', 'Map the pressure', 'We identify the workflow, users, deadline, budget, and the problem that must stop costing you time.'],
-  ['02', 'Shape the build', 'You get a clear interface direction, technical plan, scope, and launch path before implementation starts.'],
-  ['03', 'Ship and support', 'We build, test, deploy, hand over, and stay available for hosting, repairs, improvements, and growth.'],
+const projects = [
+  {
+    index: '01',
+    name: 'Fleet Manager',
+    kind: 'Logistics operations',
+    outcome: 'Fleet owners track trucks, trips, and running costs in one system instead of scattered spreadsheets.',
+    stack: ['Next.js', 'PostgreSQL', 'Prisma'],
+    url: 'https://fleetmanagerapp.netlify.app/',
+  },
+  {
+    index: '02',
+    name: 'Kowluxe',
+    kind: 'E-commerce, US hair-care brand',
+    outcome: 'Online store and landing page that sells and markets a hair-oil range end to end.',
+    stack: ['Next.js', 'Shopify', 'TypeScript'],
+    url: 'https://www.kowluxe.com/',
+  },
+  {
+    index: '03',
+    name: 'Fueling Africa Aviation',
+    kind: 'Investment platform',
+    outcome: 'Connects investors to sustainable aviation fuel opportunities and publishes sector updates.',
+    stack: ['React', 'Supabase', 'Tailwind'],
+    url: 'https://www.fuelingafricanaviation.com/',
+  },
+  {
+    index: '04',
+    name: 'Uncover Kenya',
+    kind: 'News and publishing',
+    outcome: 'A fast publishing platform for Kenyan political reporting and commentary.',
+    stack: ['React', 'Neon', 'Tailwind'],
+    url: 'https://uncover-delta.vercel.app/',
+  },
+];
+
+const guarantees = [
+  ['Source code', 'Handed over in full'],
+  ['Hosting & SSL', 'Set up and managed'],
+  ['Reply window', 'Same business day'],
+  ['Based in', 'Mombasa, Kenya'],
 ];
 
 export default function Home() {
   useEffect(() => initializeScrollAnimations(), []);
 
   return (
-    <div className="overflow-hidden bg-white text-slate-950 dark:bg-slate-950 dark:text-white">
-      <section className="relative border-b-4 border-slate-950 bg-[#eff6ff] dark:border-white dark:bg-slate-950">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.05] dark:opacity-[0.08]">
-          <div className="h-full w-full bg-[linear-gradient(90deg,#0f172a_1px,transparent_1px),linear-gradient(180deg,#0f172a_1px,transparent_1px)] bg-[size:44px_44px] dark:bg-[linear-gradient(90deg,#ffffff_1px,transparent_1px),linear-gradient(180deg,#ffffff_1px,transparent_1px)]" />
-        </div>
+    <div className="overflow-hidden bg-paper text-ink">
+      {/* ───────────────────────── Hero ───────────────────────── */}
+      <section className="relative overflow-hidden border-b border-line">
+        <HeroBackdrop variant="home" />
 
-        <div className="container-custom relative grid min-h-[calc(100vh-7.25rem)] items-center gap-12 py-16 lg:grid-cols-[1fr_0.95fr] lg:py-20">
-          <div className="animate-on-scroll max-w-4xl">
-            <div className="mb-7 flex flex-wrap items-center gap-3 text-sm font-black text-slate-800 dark:text-slate-200">
-              <span className="inline-flex max-w-full items-center gap-2 border-2 border-slate-950 bg-blue-600 px-3 py-2 text-white dark:border-white dark:bg-blue-500">
-                <MapPinIcon className="h-4 w-4" />
-                <span className="min-w-0 break-words">Mombasa, Kenya</span>
-              </span>
-            </div>
-
-            <h1 className="max-w-5xl text-5xl font-black leading-[0.96] text-slate-950 sm:text-6xl lg:text-7xl xl:text-8xl dark:text-white">
-              Practical tech systems for businesses that cannot afford guesswork.
-            </h1>
-            <p className="mt-7 max-w-2xl text-xl font-semibold leading-8 text-slate-800 dark:text-slate-200">
-              MunTek Solutions builds websites, apps, deployments, and IT support plans for Kenyan teams that need working tools and clear handover.
+        <div className="container-custom relative grid items-center gap-14 py-16 lg:min-h-[calc(100vh-7.5rem)] lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+          <div className="animate-on-scroll in-view max-w-2xl">
+            <p className="spec flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="spec-signal">FIG. 00</span>
+              <span className="h-px w-7 bg-line-strong" aria-hidden="true" />
+              MunTek Solutions · Systems engineering
             </p>
 
-            <div className="mt-9">
-              <Link to="/contact" className="btn-primary rounded-none border-2 border-slate-950 bg-slate-950 shadow-[6px_6px_0_#2563eb] hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0_#2563eb] dark:border-white dark:bg-white dark:text-slate-950">
+            <h1 className="display mt-7 text-[clamp(2.5rem,6.1vw,5rem)] text-ink">
+              Practical tech systems for businesses that cannot afford{' '}
+              <span className="redline">guesswork</span>.
+            </h1>
+
+            <p className="mt-7 max-w-xl text-lg leading-8 text-ink-muted">
+              We build websites, apps, deployments, and IT support plans for Kenyan teams that need working
+              tools and a clean handover. No mystery, no lock-in.
+            </p>
+
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <Link to="/contact" className="btn-signal">
                 Request a quote
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
-              <p className="mt-4 text-sm font-bold text-slate-700 dark:text-slate-300">
-                Prefer a call? <a href="tel:+254715747043" className="underline decoration-2 underline-offset-4 hover:text-slate-950 dark:hover:text-white">+254 715 747 043</a>
-              </p>
+              <a
+                href="tel:+254715747043"
+                className="num text-sm font-medium tracking-tight text-ink-muted transition-colors hover:text-ink"
+              >
+                or call <span className="text-ink">+254 715 747 043</span>
+              </a>
             </div>
+
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2.5">
+              {guarantees.map(([label, value]) => (
+                <li key={label} className="flex items-baseline gap-2 text-sm">
+                  <span className="h-1.5 w-1.5 flex-none translate-y-[-1px] bg-signal" aria-hidden="true" />
+                  <span className="text-ink-muted">{label}</span>
+                  <span className="font-semibold text-ink">{value}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="animate-on-scroll relative">
-            <div className="relative border-4 border-slate-950 bg-white p-5 shadow-[12px_12px_0_#0f172a] dark:border-white dark:bg-slate-900 dark:shadow-[12px_12px_0_#ffffff]">
-              <p className="bg-slate-950 px-4 py-3 text-sm font-black text-blue-400 dark:bg-white dark:text-blue-700">FROM PROBLEM TO HANDOVER</p>
-              <div className="mt-4 space-y-3">
-                {process.map(([step, title, text]) => (
-                  <div key={step} className="border-2 border-slate-950 bg-[#eff6ff] p-4 dark:border-white dark:bg-slate-950">
-                    <div className="flex items-start gap-4">
-                      <span className="flex h-11 w-11 flex-none items-center justify-center bg-blue-600 text-lg font-black text-white">
-                        {step}
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="text-xl font-black text-slate-950 dark:text-white">{title}</h3>
-                        <p className="mt-1 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300">{text}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Annotated system illustration: problem → handover */}
+          <div className="animate-on-scroll in-view relative">
+            <SystemSchematic />
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-white dark:bg-slate-950">
+      {/* ─────────────────────── Services ─────────────────────── */}
+      <section className="section-padding border-b border-line">
         <div className="container-custom">
-          <div className="mb-12 grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
-            <h2 className="section-title animate-on-scroll max-w-2xl">
-              Four service lanes. One accountable technical partner.
-            </h2>
-            <p className="section-copy animate-on-scroll max-w-3xl lg:ml-auto">
-              MunTek connects the public website, internal workflow, hosting, network, and support layer.
+          <header className="mb-12 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div className="animate-on-scroll">
+              <h2 className="section-title tick-rule inline-block max-w-md">
+                Four service lanes, one accountable partner
+              </h2>
+            </div>
+            <p className="section-copy animate-on-scroll max-w-2xl lg:ml-auto lg:pb-1">
+              MunTek connects the public website, internal workflow, hosting, network, and support layer, so
+              one team owns the whole chain instead of pointing at the next vendor.
             </p>
-          </div>
+          </header>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="animate-on-scroll border-t border-line">
             {services.map((service) => (
-              <article key={service.title} className="group animate-on-scroll border-2 border-slate-950 bg-[#eff6ff] p-6 transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#0f172a] dark:border-white dark:bg-slate-900 dark:hover:shadow-[8px_8px_0_#ffffff]">
-                <div className="flex items-start gap-5">
-                  <div className="flex h-14 w-14 flex-none items-center justify-center bg-slate-950 text-blue-400 dark:bg-white dark:text-slate-950">
-                    <service.icon className="h-7 w-7" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-2xl font-black leading-tight text-slate-950 dark:text-white">{service.title}</h3>
-                    <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{service.text}</p>
-                  </div>
+              <article
+                key={service.ref}
+                className={`group grid gap-5 border-b border-line px-1 py-7 transition-colors sm:grid-cols-[auto_1fr_auto] sm:items-start sm:gap-8 sm:py-8 ${
+                  service.featured ? 'bg-well/60' : 'hover:bg-well/40'
+                }`}
+              >
+                <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-3">
+                  <span className="num text-xs font-medium tracking-tight text-ink-muted">{service.ref}</span>
+                  <span
+                    className={`flex h-12 w-12 flex-none items-center justify-center border ${
+                      service.featured ? 'border-ink bg-ink text-paper' : 'border-line-strong bg-surface text-ink'
+                    }`}
+                  >
+                    <service.icon className="h-6 w-6" />
+                  </span>
                 </div>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <h3 className="font-heading text-xl font-bold tracking-tight text-ink sm:text-2xl">{service.title}</h3>
+                    {service.featured && (
+                      <span className="chip border-signal/40 text-signal-strong">Most projects start here</span>
+                    )}
+                  </div>
+                  <p className="mt-2.5 max-w-2xl leading-7 text-ink-muted">{service.text}</p>
+                </div>
+                <Link
+                  to="/services"
+                  aria-label={`Read more about: ${service.title}`}
+                  className="flex h-11 w-11 flex-none items-center justify-center self-start border border-line-strong bg-surface text-ink-muted transition-all duration-200 group-hover:border-ink group-hover:text-ink"
+                >
+                  <ArrowUpRightIcon className="h-4 w-4" />
+                </Link>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-white dark:bg-slate-950">
+      {/* ─────────────────────── Projects ─────────────────────── */}
+      <section className="section-padding border-b border-line bg-well/40">
         <div className="container-custom">
-          <div className="border-4 border-slate-950 bg-slate-950 p-8 text-white shadow-[10px_10px_0_#2563eb] dark:border-white sm:p-10 lg:p-14">
-            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+          <header className="mb-12 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div className="animate-on-scroll">
+              <h2 className="section-title tick-rule inline-block max-w-md">
+                Live builds in daily use
+              </h2>
+            </div>
+            <p className="section-copy animate-on-scroll max-w-2xl lg:ml-auto lg:pb-1">
+              Real systems we designed, built, and deployed across logistics, retail, energy, and publishing.
+              Open any of them and check the work yourself.
+            </p>
+          </header>
+
+          <div className="animate-on-scroll panel">
+            {projects.map((project) => (
+              <article
+                key={project.name}
+                className="group grid gap-5 border-b border-line px-5 py-7 transition-colors last:border-b-0 hover:bg-well/60 sm:grid-cols-[auto_1fr_auto] sm:items-start sm:gap-8 sm:px-7 sm:py-8"
+              >
+                <span className="num flex h-12 w-12 flex-none items-center justify-center border border-ink bg-paper text-sm font-semibold text-ink">
+                  {project.index}
+                </span>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-heading text-xl font-bold tracking-tight text-ink sm:text-2xl">{project.name}</h3>
+                    <span className="spec text-[0.62rem]">{project.kind}</span>
+                  </div>
+                  <p className="mt-2.5 max-w-2xl leading-7 text-ink-muted">{project.outcome}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.stack.map((tech) => (
+                      <span key={tech} className="chip bg-surface">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View the ${project.name} live site, opens in a new tab`}
+                  className="btn-outline h-11 min-h-0 self-start px-4 text-xs"
+                >
+                  View live
+                  <ArrowUpRightIcon className="h-4 w-4" />
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────── CTA ───────────────────────── */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <div className="registered relative overflow-hidden border border-ink bg-ink text-paper">
+            <div className="bp-grid-lg pointer-events-none absolute inset-0 opacity-40" />
+            <div className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-end lg:p-16">
               <div>
-                <ShieldCheckIcon className="mb-5 h-10 w-10 text-blue-400" />
-                <h2 className="max-w-3xl text-3xl font-black leading-tight sm:text-5xl">Bring the problem. Leave with a practical next step.</h2>
-                <p className="mt-4 max-w-2xl text-lg font-semibold leading-8 text-slate-300">
-                  Tell us what you need built, fixed, hosted, or supported. We will turn it into a clear technical path.
+                <p className="spec text-paper/60"><span className="spec-signal">FIG. 99</span> &nbsp;Open a job ticket</p>
+                <h2 className="display mt-6 max-w-2xl text-[clamp(1.9rem,3.8vw,3.25rem)] text-paper">
+                  Bring the problem. Leave with a practical next step.
+                </h2>
+                <p className="mt-5 max-w-xl text-lg leading-8 text-paper/70">
+                  Tell us what you need built, fixed, hosted, or supported. We turn it into a clear technical
+                  path with scope and cost before any work starts.
                 </p>
               </div>
-              <Link to="/contact" className="btn-primary rounded-none border-2 border-white bg-white text-slate-950 shadow-none hover:bg-white hover:text-slate-950">
-                Request a quote
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
+              <div className="flex flex-col items-start gap-4 lg:items-end">
+                <Link
+                  to="/contact"
+                  className="inline-flex min-h-12 items-center justify-center gap-2.5 border border-signal bg-signal px-7 text-sm font-bold tracking-tight text-ink transition-transform duration-150 hover:scale-[1.015] active:scale-[0.985]"
+                >
+                  Request a quote
+                  <ArrowRightIcon className="h-4 w-4" />
+                </Link>
+                <a href="tel:+254715747043" className="num text-sm text-paper/70 transition-colors hover:text-paper">
+                  +254 715 747 043
+                </a>
+              </div>
             </div>
           </div>
         </div>

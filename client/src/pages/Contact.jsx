@@ -5,6 +5,7 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from '@heroicons/react/24/outline';
+import { HeroBackdrop } from '../components/common/BlueprintArt';
 
 const serviceOptions = [
   'Web development',
@@ -76,29 +77,32 @@ export default function Contact() {
   const isSuccess = notice.startsWith('Message sent');
 
   return (
-    <div className="bg-white dark:bg-slate-950">
+    <div className="bg-paper text-ink">
       <section className="page-hero">
+        <HeroBackdrop variant="contact" />
         <div className="page-hero-grid">
           <div>
-            <span className="brand-chip">Contact</span>
-            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.98] text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">
+            <p className="spec mb-6"><span className="spec-signal">FIG. 03</span> &nbsp;Contact</p>
+            <h1 className="display max-w-3xl text-[clamp(2.4rem,5.4vw,4.25rem)] text-ink">
               Tell us what needs to be built, fixed, or supported.
             </h1>
           </div>
-          <div className="max-w-3xl lg:ml-auto">
+          <div className="max-w-2xl lg:ml-auto">
             <p className="section-copy">
-              Use one form for project inquiries, support requests, and quote conversations. Clear details help us respond with a useful next step.
+              Use one form for project inquiries, support requests, and quote conversations. Clear details
+              help us respond with a useful next step.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-white dark:bg-slate-950">
-        <div className="container-custom grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <form onSubmit={onSubmit} className="surface-card self-start p-6 sm:p-8">
-            <div className="mb-8">
-              <h2 className="text-3xl font-black text-slate-950 dark:text-white">Request a quote</h2>
-              <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">
+      <section className="section-padding">
+        <div className="container-custom grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <form onSubmit={onSubmit} className="registered panel self-start p-6 sm:p-8">
+            <div className="mb-8 border-b border-line pb-6">
+              <p className="spec mb-3 text-ink">Job ticket</p>
+              <h2 className="font-heading text-2xl font-bold tracking-tight text-ink">Request a quote</h2>
+              <p className="mt-3 leading-7 text-ink-muted">
                 Share the essentials: what you need, the pressure point, timing, and what success should look like.
               </p>
             </div>
@@ -108,13 +112,13 @@ export default function Contact() {
               <Field label="Email" name="email" type="email" value={form.email} onChange={onChange} required autoComplete="email" />
               <Field label="Phone" name="phone" type="tel" value={form.phone} onChange={onChange} autoComplete="tel" />
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200" htmlFor="service">Service</label>
+                <label className="spec mb-2 block text-ink-muted" htmlFor="service">Service</label>
                 <select
                   id="service"
                   name="service"
                   value={form.service}
                   onChange={onChange}
-                  className="brand-input"
+                  className="field"
                 >
                   {serviceOptions.map((option) => (
                     <option key={option}>{option}</option>
@@ -124,7 +128,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-5">
-              <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200" htmlFor="message">Project details</label>
+              <label className="spec mb-2 block text-ink-muted" htmlFor="message">Project details</label>
               <textarea
                 id="message"
                 name="message"
@@ -132,48 +136,60 @@ export default function Contact() {
                 value={form.message}
                 onChange={onChange}
                 required
-                className="brand-input resize-y"
+                className="field resize-y"
                 placeholder="What do you need, when do you need it, and what should the finished solution help you achieve?"
               />
             </div>
 
-            <button type="submit" disabled={loading} className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60">
+            <button type="submit" disabled={loading} className="btn-signal mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60">
               {loading ? 'Sending message...' : 'Send message'}
               <ArrowRightIcon className="h-4 w-4" />
             </button>
 
             <div aria-live="polite" aria-atomic="true">
               {notice && (
-                <p className={`mt-4 border-2 p-3 text-center text-sm font-bold ${isSuccess ? 'border-blue-700 bg-blue-50 text-blue-950 dark:border-blue-300 dark:bg-blue-950 dark:text-blue-100' : 'border-red-700 bg-red-50 text-red-900 dark:border-red-300 dark:bg-red-950 dark:text-red-100'}`}>
+                <p
+                  className={`mt-4 border px-4 py-3 text-sm font-medium leading-6 ${
+                    isSuccess
+                      ? 'border-signal bg-signal/10 text-ink'
+                      : 'border-red-600 bg-red-50 text-red-900 dark:bg-red-950/40 dark:text-red-200'
+                  }`}
+                >
                   {notice}
                 </p>
               )}
             </div>
           </form>
 
-          <aside className="space-y-5">
-            <div className="surface-card p-6 sm:p-8">
-              <h2 className="text-2xl font-black text-slate-950 dark:text-white">What happens next</h2>
-              <ol className="mt-6 space-y-4">
+          <aside className="space-y-6">
+            <div className="panel p-6 sm:p-7">
+              <p className="spec mb-5 text-ink">What happens next</p>
+              <ol className="space-y-5">
                 {nextSteps.map((step, index) => (
                   <li key={step} className="flex min-w-0 gap-4">
-                    <span className="flex h-9 w-9 flex-none items-center justify-center bg-blue-600 text-sm font-black text-white">0{index + 1}</span>
-                    <span className="min-w-0 font-semibold leading-7 text-slate-700 dark:text-slate-300">{step}</span>
+                    <span className="num flex h-9 w-9 flex-none items-center justify-center border border-ink bg-paper text-xs font-semibold text-ink">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="min-w-0 leading-7 text-ink-muted">{step}</span>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="surface-card p-6 sm:p-8">
-              <h2 className="text-2xl font-black text-slate-950 dark:text-white">Contact details</h2>
-              <div className="mt-6 space-y-5">
+            <div className="panel p-6 sm:p-7">
+              <p className="spec mb-5 text-ink">Contact details</p>
+              <div className="divide-y divide-line">
                 <InfoLine icon={PhoneIcon} heading="Phone" text="+254 715 747 043" link="tel:+254715747043" />
                 <InfoLine icon={EnvelopeIcon} heading="Email" text="munteksolutions@gmail.com" link="mailto:munteksolutions@gmail.com" />
                 <InfoLine icon={BuildingOffice2Icon} heading="Office" text="Moi Avenue opposite Equity Bank, Mombasa" />
               </div>
             </div>
 
-            <div className="surface-card overflow-hidden">
+            <div className="panel overflow-hidden">
+              <div className="flex items-center justify-between border-b border-line bg-well px-5 py-3">
+                <span className="spec text-ink">Site location</span>
+                <span className="spec spec-signal">Lat -4.05 / Lon 39.66</span>
+              </div>
               <iframe
                 title="Mombasa office map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12891.884369239197!2d39.6627589!3d-4.0575138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x184012719a4e4871%3A0x57f7b9e6f6bb4f6e!2sEquity%20Bank%2C%20Moi%20Ave%2C%20Mombasa!5e0!3m2!1sen!2ske!4v1695123456789!5m2!1sen!2ske"
@@ -195,7 +211,7 @@ export default function Contact() {
 function Field({ label, name, type = 'text', value, onChange, required = false, autoComplete }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200" htmlFor={name}>{label}</label>
+      <label className="spec mb-2 block text-ink-muted" htmlFor={name}>{label}</label>
       <input
         id={name}
         name={name}
@@ -204,7 +220,7 @@ function Field({ label, name, type = 'text', value, onChange, required = false, 
         onChange={onChange}
         required={required}
         autoComplete={autoComplete}
-        className="brand-input"
+        className="field"
       />
     </div>
   );
@@ -215,21 +231,21 @@ function InfoLine({ icon, heading, text, link }) {
 
   const content = (
     <>
-      <div className="brand-icon h-11 w-11">
+      <span className="flex h-11 w-11 flex-none items-center justify-center border border-ink bg-ink text-paper">
         <Icon className="h-5 w-5" />
-      </div>
+      </span>
       <div className="min-w-0">
-        <h3 className="font-black text-slate-950 dark:text-white">{heading}</h3>
-        <p className="mt-1 break-words text-slate-700 dark:text-slate-300">{text}</p>
+        <h3 className="spec text-ink-muted">{heading}</h3>
+        <p className="mt-1.5 break-words font-medium text-ink">{text}</p>
       </div>
     </>
   );
 
   return link ? (
-    <a href={link} className="flex min-w-0 gap-4 border border-transparent p-2 transition hover:border-slate-950 dark:hover:border-white">
+    <a href={link} className="flex min-w-0 items-center gap-4 py-4 transition-colors first:pt-0 last:pb-0 hover:text-signal-strong">
       {content}
     </a>
   ) : (
-    <div className="flex min-w-0 gap-4 p-2">{content}</div>
+    <div className="flex min-w-0 items-center gap-4 py-4 first:pt-0 last:pb-0">{content}</div>
   );
 }

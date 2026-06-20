@@ -11,10 +11,10 @@ import {
 import { useTheme } from '../../context/ThemeContext';
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: '/', ref: '00' },
+  { name: 'Services', href: '/services', ref: '01' },
+  { name: 'About', href: '/about', ref: '02' },
+  { name: 'Contact', href: '/contact', ref: '03' },
 ];
 
 export default function Navbar() {
@@ -27,52 +27,65 @@ export default function Navbar() {
   }, [pathname]);
 
   const linkClass = ({ isActive }) =>
-    `px-4 py-2 text-sm font-bold transition duration-300 ${
+    `relative inline-flex min-h-11 items-center px-3.5 text-sm font-semibold tracking-tight transition-colors duration-200 ${
       isActive
-        ? 'bg-blue-600 text-white dark:bg-blue-500 dark:text-white'
-        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white'
+        ? 'text-ink'
+        : 'text-ink-muted hover:text-ink'
     }`;
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-slate-950 bg-white/95 backdrop-blur-xl dark:border-white dark:bg-slate-950/95">
-      <div className="hidden border-b border-white/10 bg-slate-950 text-white lg:block">
-        <div className="container-custom flex h-9 items-center justify-between text-sm">
-          <a href="tel:+254715747043" className="inline-flex items-center gap-2 text-slate-200 hover:text-white">
-            <PhoneIcon className="h-4 w-4" />
+    <header className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-xl">
+      <div className="hidden border-b border-line bg-ink text-paper lg:block">
+        <div className="container-custom flex h-9 items-center justify-between">
+          <a href="tel:+254715747043" className="spec inline-flex items-center gap-2 text-paper/80 transition-colors hover:text-paper">
+            <PhoneIcon className="h-3.5 w-3.5" />
             +254 715 747 043
           </a>
-          <p className="text-slate-300">Professional IT solutions for teams across Kenya.</p>
+          <p className="spec text-paper/55">
+            <span className="spec-signal">●</span>&nbsp; Lat -4.05 / Lon 39.66 · Mombasa, Kenya
+          </p>
         </div>
       </div>
 
-      <nav className="container-custom flex h-20 items-center justify-between">
-        <NavLink to="/" className="flex min-w-0 items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
-          <img src="/assets/logo.jpg" alt="MunTek Solutions" className="h-11 w-11 object-contain ring-2 ring-slate-950 dark:ring-white" />
-          <div className="min-w-0 leading-tight">
-            <span className="block text-base font-extrabold text-slate-950 dark:text-white">MunTek Solutions</span>
-            <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400">IT Solutions & Software</span>
-          </div>
+      <nav className="container-custom flex h-[4.75rem] items-center justify-between gap-4">
+        <NavLink to="/" className="group flex min-w-0 items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
+          <span className="registered flex h-11 w-11 flex-none items-center justify-center border border-ink bg-ink">
+            <img src="/assets/logo.jpg" alt="MunTek Solutions" className="h-full w-full object-cover" />
+          </span>
+          <span className="min-w-0 leading-tight">
+            <span className="block font-heading text-[0.95rem] font-bold tracking-tight text-ink">MunTek Solutions</span>
+            <span className="spec mt-1 block text-[0.6rem]">Systems engineering · EST. Mombasa</span>
+          </span>
         </NavLink>
 
-        <div className="hidden items-center gap-1 border-2 border-slate-950 bg-white p-1 dark:border-white dark:bg-slate-900 md:flex">
+        <div className="hidden items-center md:flex">
           {navigation.map((item) => (
             <NavLink key={item.name} to={item.href} className={linkClass}>
-              {item.name}
+              {({ isActive }) => (
+                <>
+                  {item.name}
+                  <span
+                    className={`absolute bottom-1.5 left-3.5 right-3.5 h-[2px] origin-left bg-signal transition-transform duration-300 ${
+                      isActive ? 'scale-x-100' : 'scale-x-0'
+                    }`}
+                  />
+                </>
+              )}
             </NavLink>
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={toggleTheme}
-            className="hidden h-11 w-11 items-center justify-center border-2 border-slate-950 bg-white text-slate-700 transition hover:bg-slate-100 hover:text-slate-950 dark:border-white dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white sm:inline-flex"
+            className="hidden h-11 w-11 items-center justify-center border border-line-strong bg-surface text-ink-muted transition-colors hover:border-ink hover:text-ink sm:inline-flex"
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
           >
             {theme === 'light' ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
           </button>
 
-          <NavLink to="/contact" className="btn-primary hidden rounded-none border-2 border-slate-950 bg-slate-950 shadow-[4px_4px_0_#2563eb] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_#2563eb] dark:border-white dark:bg-white dark:text-slate-950 lg:inline-flex">
+          <NavLink to="/contact" className="btn-signal hidden lg:inline-flex">
             Request a quote
             <ArrowRightIcon className="h-4 w-4" />
           </NavLink>
@@ -80,7 +93,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((value) => !value)}
-            className="inline-flex h-11 w-11 items-center justify-center border-2 border-slate-950 bg-white text-slate-800 transition hover:bg-slate-100 dark:border-white dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center border border-line-strong bg-surface text-ink transition-colors hover:border-ink md:hidden"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation"
@@ -93,21 +106,27 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div
           id="mobile-navigation"
-          className="border-t-2 border-slate-950 bg-white dark:border-white dark:bg-slate-950 md:hidden"
+          className="border-t border-line bg-paper md:hidden"
         >
-          <div className="container-custom space-y-2 py-4">
+          <div className="container-custom divide-y divide-line py-2">
             {navigation.map((item) => (
               <NavLink
                 key={item.name}
                 to={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={(state) => `${linkClass(state)} block break-words`}
+                className={({ isActive }) =>
+                  `flex items-center justify-between py-3.5 text-base font-semibold tracking-tight transition-colors ${
+                    isActive ? 'text-ink' : 'text-ink-muted hover:text-ink'
+                  }`
+                }
               >
                 {item.name}
+                <span className="num text-xs text-ink-muted/70">/{item.ref}</span>
               </NavLink>
             ))}
-            <NavLink to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary mt-3 w-full rounded-none border-2 border-slate-950 bg-slate-950 dark:border-white dark:bg-white dark:text-slate-950">
+            <NavLink to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="btn-signal mt-4 w-full">
               Request a quote
+              <ArrowRightIcon className="h-4 w-4" />
             </NavLink>
           </div>
         </div>

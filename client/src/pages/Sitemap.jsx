@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
+import { HeroBackdrop } from '../components/common/BlueprintArt';
 
 const links = [
   { name: 'Home', href: '/', note: 'Start here' },
@@ -11,22 +13,31 @@ const links = [
 
 export default function Sitemap() {
   return (
-    <main className="bg-white dark:bg-slate-950">
+    <main className="bg-paper text-ink">
       <section className="page-hero">
-        <div className="container-custom py-16 lg:py-20">
-          <span className="brand-chip">Sitemap</span>
-          <h1 className="mt-6 max-w-3xl text-5xl font-black leading-tight text-slate-950 dark:text-white">Website pages</h1>
-          <p className="section-copy mt-5 max-w-2xl">Quick links to the public service pages on the site.</p>
+        <HeroBackdrop variant="doc" />
+        <div className="container-custom relative py-16 lg:py-20">
+          <p className="spec mb-6"><span className="spec-signal">DOC. A0</span> &nbsp;Index</p>
+          <h1 className="display max-w-3xl text-[clamp(2.2rem,4.6vw,3.5rem)] text-ink">Website pages</h1>
+          <p className="section-copy mt-6 max-w-2xl">Quick links to the public service pages on the site.</p>
         </div>
       </section>
 
       <section className="section-padding">
         <div className="container-custom max-w-4xl">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {links.map((link) => (
-              <Link key={link.href} to={link.href} className="surface-card surface-card-hover p-5 font-bold text-slate-900 dark:text-white">
-                <span className="block text-xl font-black">{link.name}</span>
-                <span className="mt-2 block text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300">{link.note}</span>
+          <div className="grid gap-px border border-line bg-line sm:grid-cols-2">
+            {links.map((link, i) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="group flex items-start gap-4 bg-surface p-6 transition-colors hover:bg-well"
+              >
+                <span className="num pt-1 text-xs text-signal-strong">{String(i + 1).padStart(2, '0')}</span>
+                <span className="min-w-0">
+                  <span className="block font-heading text-lg font-bold tracking-tight text-ink">{link.name}</span>
+                  <span className="mt-1.5 block text-sm leading-6 text-ink-muted">{link.note}</span>
+                </span>
+                <ArrowUpRightIcon className="ml-auto h-4 w-4 flex-none text-ink-muted opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>
             ))}
           </div>

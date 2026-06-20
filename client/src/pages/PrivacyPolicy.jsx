@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom';
+import { HeroBackdrop } from '../components/common/BlueprintArt';
 
 export default function PrivacyPolicy() {
   return (
-    <main className="bg-white dark:bg-slate-950">
+    <main className="bg-paper text-ink">
       <section className="page-hero">
-        <div className="container-custom py-16 lg:py-20">
-          <span className="brand-chip">Privacy</span>
-          <h1 className="mt-6 max-w-3xl text-5xl font-black leading-tight text-slate-950 dark:text-white">Privacy Policy</h1>
-          <p className="section-copy mt-5">Last updated: May 12, 2026</p>
+        <HeroBackdrop variant="doc" />
+        <div className="container-custom relative py-16 lg:py-20">
+          <p className="spec mb-6"><span className="spec-signal">DOC. A1</span> &nbsp;Privacy</p>
+          <h1 className="display max-w-3xl text-[clamp(2.2rem,4.6vw,3.5rem)] text-ink">Privacy Policy</h1>
+          <p className="spec mt-6 text-ink-muted">Last revised 2026-05-12</p>
         </div>
       </section>
 
       <section className="section-padding">
-        <article className="surface-card container-custom max-w-4xl p-8 sm:p-10">
-          <div className="prose prose-slate max-w-none dark:prose-invert prose-headings:font-black prose-a:font-bold">
+        <article className="registered panel container-custom max-w-3xl p-8 sm:p-10">
+          <div className="prose prose-slate max-w-none dark:prose-invert prose-headings:font-heading prose-headings:font-bold prose-headings:tracking-tight prose-a:font-semibold prose-a:text-signal-strong">
             <p>
               At MunTek Solutions, we collect only the information needed to respond to inquiries, prepare quotes, provide support, and improve our services.
             </p>
