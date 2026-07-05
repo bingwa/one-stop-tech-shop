@@ -4,7 +4,12 @@
       "Bash(npx vite *)",
       "Bash(npx eslint *)",
       "Skill(impeccable)",
-      "Skill(impeccable:*)"
+      "Skill(impeccable:*)",
+      "Bash(node .claude/skills/impeccable/scripts/live.mjs)",
+      "Bash(node .claude/skills/impeccable/scripts/live-poll.mjs)",
+      "Bash(node .claude/skills/impeccable/scripts/live-wrap.mjs --id e30330c6 --count 3 --file client/src/pages/Home.jsx --classes \"relative,overflow-hidden,border-b,border-line\" --tag \"section\" --text \"Practical tech systems for businesses that cannot afford\")",
+      "Bash(node .claude/skills/impeccable/scripts/live-poll.mjs --reply e30330c6 done --file client/src/pages/Home.jsx)",
+      "Bash(node .claude/skills/impeccable/scripts/live-complete.mjs --id e30330c6)"
     ]
   }
 }

@@ -62,9 +62,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Archivo', 'system-ui', 'sans-serif'],
-        heading: ['Archivo Expanded', 'Archivo', 'system-ui', 'sans-serif'],
-        mono: ['Martian Mono', 'ui-monospace', 'monospace'],
+        sans: ['Hanken Grotesk Variable', 'system-ui', 'sans-serif'],
+        heading: ['Bricolage Grotesque Variable', 'Hanken Grotesk Variable', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
