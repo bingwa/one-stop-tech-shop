@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from '@phosphor-icons/react';
 import Reveal from '../components/common/Reveal';
+import Seo from '../components/common/Seo';
 
 const workingPrinciples = [
   {
@@ -55,6 +56,11 @@ const team = [
 export default function About() {
   return (
     <div className="bg-paper text-ink">
+      <Seo
+        title="About MunTek Solutions | IT & Software Team in Mombasa, Kenya"
+        description="Meet MunTek Solutions, a Mombasa-based IT team building websites, mobile apps, networks, and support systems that Kenyan businesses can understand, use, and maintain."
+        path="/about"
+      />
       {/* Hero */}
       <section className="relative border-b border-line">
         <div
@@ -104,8 +110,9 @@ export default function About() {
               and reachable when support is needed.
             </p>
             <p>
-              What began as website and application development now includes mobile apps, networks, cloud
-              deployment, technical support, and consulting.
+              What began as website and application development in Mombasa now includes mobile apps,
+              networks, cloud deployment, technical support, and consulting for clients across Kenya and
+              abroad.
             </p>
             <p>
               We keep projects grounded in the people using the system, the environment it runs in, and the

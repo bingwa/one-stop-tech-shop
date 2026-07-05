@@ -10,6 +10,7 @@ import {
   Wrench,
 } from '@phosphor-icons/react';
 import Reveal from '../components/common/Reveal';
+import Seo from '../components/common/Seo';
 
 const coreServices = [
   {
@@ -70,6 +71,39 @@ const coreServices = [
   },
 ];
 
+const faqs = [
+  {
+    q: 'How much does a website cost in Kenya?',
+    a: 'Our custom websites start from KSh 15,000. The final price depends on pages, features, and integrations. You approve a written scope and cost before any build work starts.',
+  },
+  {
+    q: 'How long does a website or app project take?',
+    a: 'A business website typically takes 1 to 2 weeks. Web apps and portals run 3 to 8 weeks depending on scope, and mobile apps 4 to 10 weeks. Every quote comes with a timeline.',
+  },
+  {
+    q: 'Do you only work with businesses in Mombasa?',
+    a: 'No. We are based in Mombasa and work with clients across Kenya and abroad. Most projects run remotely with calls and shared previews. On-site visits are available for network installations.',
+  },
+  {
+    q: 'What happens after my website or app goes live?',
+    a: 'You receive the full source code, credentials, and documentation. We can manage hosting from KSh 10,000 per month and support from KSh 15,000 per month, or your team can take over completely.',
+  },
+  {
+    q: 'Can you fix or improve a system another developer built?',
+    a: 'Yes. We audit the current system, tell you honestly whether repairing or rebuilding is cheaper, and give you a cost for each path before you commit.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
 const engagement = [
   {
     title: 'Discovery and scope',
@@ -88,6 +122,12 @@ const engagement = [
 export default function Services() {
   return (
     <div className="bg-paper text-ink">
+      <Seo
+        title="IT Services & Pricing in Kenya | MunTek Solutions"
+        description="Transparent IT service pricing in Kenya: websites from KSh 15,000, mobile apps from KSh 50,000, plus networks, cloud hosting, and IT support from a Mombasa team."
+        path="/services"
+        jsonLd={faqJsonLd}
+      />
       {/* Hero */}
       <section className="relative border-b border-line">
         <div
@@ -100,11 +140,11 @@ export default function Services() {
         <div className="container-custom relative grid items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
           <Reveal className="max-w-2xl">
             <h1 className="display text-4xl text-ink sm:text-5xl">
-              Build, launch, and support the systems your business depends on.
+              Every IT service a Kenyan business needs to build, launch, and grow.
             </h1>
             <p className="section-copy mt-6 max-w-xl">
-              Software development, cloud deployment, networks, and IT support from one team, so business
-              systems do not fall apart between vendors.
+              Web development, mobile apps, network installations, cloud deployment, and IT support from
+              one Mombasa team. Transparent pricing in Kenyan shillings.
             </p>
             <Link to="/contact" className="btn-signal mt-8">
               Request a quote
@@ -207,6 +247,34 @@ export default function Services() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding border-b border-line">
+        <div className="container-custom grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <Reveal>
+            <h2 className="section-title max-w-sm">Questions clients ask before hiring us</h2>
+            <p className="section-copy mt-4 max-w-sm">
+              Straight answers on cost, timelines, and what happens after launch. Anything else, ask us
+              directly.
+            </p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="panel divide-y divide-line">
+              {faqs.map((item) => (
+                <details key={item.q} className="group px-6 py-5 sm:px-7">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-lg font-bold tracking-tight text-ink [&::-webkit-details-marker]:hidden">
+                    {item.q}
+                    <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-signal/10 text-signal-strong transition-transform duration-300 group-open:rotate-45">
+                      <span aria-hidden="true" className="text-lg leading-none">+</span>
+                    </span>
+                  </summary>
+                  <p className="mt-3 max-w-2xl leading-7 text-ink-muted">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 

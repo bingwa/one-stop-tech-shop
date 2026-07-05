@@ -39,7 +39,8 @@ export default function Footer() {
               <span className="font-heading text-lg font-bold tracking-tight text-white">MunTek Solutions</span>
             </Link>
             <p className="leading-7 text-zinc-400">
-              We help Kenyan businesses plan, build, launch, and support dependable digital systems.
+              An IT solutions company based in Mombasa, helping businesses across Kenya plan, build,
+              launch, and support dependable digital systems.
             </p>
             <Link to="/contact" className="btn-signal mt-7">
               Request a quote

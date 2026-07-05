@@ -13,6 +13,7 @@ import {
   Wrench,
 } from '@phosphor-icons/react';
 import Reveal from '../components/common/Reveal';
+import Seo from '../components/common/Seo';
 
 const services = [
   {
@@ -41,8 +42,10 @@ const services = [
 const projects = [
   {
     name: 'Fleet Manager',
-    kind: 'Logistics operations',
-    outcome: 'Fleet owners track trucks, trips, and running costs in one system instead of scattered spreadsheets.',
+    kind: 'Logistics SaaS',
+    outcome:
+      'Replaced spreadsheet chaos with one operations dashboard for trucks, trips, fuel, maintenance, and compliance.',
+    delivered: 'Product design, build, deployment, and ongoing support.',
     stack: ['Next.js', 'PostgreSQL', 'Prisma'],
     url: 'https://fleetmanagerapp.netlify.app/',
     image: '/assets/FLM.png',
@@ -50,8 +53,10 @@ const projects = [
   },
   {
     name: 'Kowluxe',
-    kind: 'E-commerce, US hair-care brand',
-    outcome: 'Online store and landing page that sells and markets a hair-oil range end to end.',
+    kind: 'E-commerce for a US hair-care brand',
+    outcome:
+      'A direct-to-customer store and brand site selling a hair-oil range to the American market.',
+    delivered: 'Store design, build, launch, and marketing pages.',
     stack: ['Next.js', 'Shopify', 'TypeScript'],
     url: 'https://www.kowluxe.com/',
     image: 'https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.kowluxe.com%2F?w=1100&h=740',
@@ -59,7 +64,9 @@ const projects = [
   {
     name: 'Fueling Africa Aviation',
     kind: 'Investment platform',
-    outcome: 'Connects investors to sustainable aviation fuel opportunities and publishes sector updates.',
+    outcome:
+      'Connects investors to sustainable aviation fuel opportunities in Africa and publishes sector updates.',
+    delivered: 'Platform design, build, deployment, and content tooling.',
     stack: ['React', 'Supabase', 'Tailwind'],
     url: 'https://www.fuelingafricanaviation.com/',
     image: 'https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.fuelingafricanaviation.com%2F?w=1100&h=740',
@@ -67,7 +74,8 @@ const projects = [
   {
     name: 'Uncover Kenya',
     kind: 'News and publishing',
-    outcome: 'A fast publishing platform for Kenyan political reporting and commentary.',
+    outcome: 'A publishing platform fast enough for breaking Kenyan political reporting and commentary.',
+    delivered: 'Platform build, deployment, and performance work.',
     stack: ['React', 'Neon', 'Tailwind'],
     url: 'https://uncover-delta.vercel.app/',
     image: 'https://s.wordpress.com/mshots/v1/https%3A%2F%2Funcover-delta.vercel.app%2F?w=1400&h=740',
@@ -108,6 +116,11 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden bg-paper text-ink">
+      <Seo
+        title="MunTek Solutions | IT Solutions & Web Development in Kenya"
+        description="IT solutions in Kenya: web development, mobile apps, cloud deployment, networks, and IT support from a Mombasa-based team. Quotes answered the same business day."
+        path="/"
+      />
       {/* Hero: split, real product screenshot on the right */}
       <section className="relative border-b border-line">
         <div
@@ -124,11 +137,11 @@ export default function Home() {
               {...enter(0)}
               className="display text-4xl text-ink sm:text-5xl lg:text-[3.4rem]"
             >
-              Websites, apps, and IT systems built to win you customers.
+              IT solutions that win Kenyan businesses more customers.
             </Motion.h1>
             <Motion.p {...enter(0.08)} className="mt-6 max-w-lg text-lg leading-8 text-ink-muted">
-              MunTek designs, builds, and supports software for Kenyan businesses. Clear scope, clean
-              handover, support that answers.
+              Web development, mobile apps, and IT support from Mombasa, serving companies across Kenya.
+              Clear scope, clean handover.
             </Motion.p>
             <Motion.div {...enter(0.16)} className="mt-9 flex flex-wrap items-center gap-4">
               <Link to="/contact" className="btn-signal">
@@ -173,10 +186,10 @@ export default function Home() {
       <section className="section-padding border-b border-line">
         <div className="container-custom">
           <Reveal className="max-w-2xl">
-            <h2 className="section-title">Everything digital, one accountable partner</h2>
+            <h2 className="section-title">Every IT service your business needs, one accountable partner</h2>
             <p className="section-copy mt-4">
-              Website, internal tools, hosting, network, and support owned by one team, so nothing falls
-              apart between vendors.
+              Web development, mobile apps, cloud hosting, networks, and IT support handled end to end by
+              one Kenyan team, so nothing falls apart between vendors.
             </p>
           </Reveal>
 
@@ -236,10 +249,10 @@ export default function Home() {
       <section id="work" className="section-padding border-b border-line bg-well/50">
         <div className="container-custom">
           <Reveal className="max-w-2xl">
-            <h2 className="section-title">Live builds in daily use</h2>
+            <h2 className="section-title">Selected client work</h2>
             <p className="section-copy mt-4">
-              Real systems across logistics, retail, energy, and publishing. Open any of them and check the
-              work yourself.
+              A small sample of engagements we can share publicly, from logistics to international
+              e-commerce. Each system is live, in daily use, and still supported by our team.
             </p>
           </Reveal>
 
@@ -366,6 +379,9 @@ function ProjectMeta({ project }) {
         <ArrowUpRight size={18} weight="bold" className="text-ink-muted transition-colors group-hover:text-signal-strong" />
       </h3>
       <p className="mt-3 max-w-xl leading-7 text-ink-muted">{project.outcome}</p>
+      <p className="mt-3 max-w-xl text-sm leading-6 text-ink">
+        <span className="font-semibold">Delivered:</span> {project.delivered}
+      </p>
       <div className="mt-5 flex flex-wrap gap-2">
         {project.stack.map((tech) => (
           <span key={tech} className="chip">{tech}</span>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, Buildings, EnvelopeSimple, Phone } from '@phosphor-icons/react';
 import Reveal from '../components/common/Reveal';
+import Seo from '../components/common/Seo';
 
 const serviceOptions = [
   'Web development',
@@ -73,6 +74,11 @@ export default function Contact() {
 
   return (
     <div className="bg-paper text-ink">
+      <Seo
+        title="Contact MunTek Solutions | IT Support & Project Quotes in Kenya"
+        description="Request a quote for web development, mobile apps, networks, or IT support in Kenya. Call +254 715 747 043 or send the form. Replies the same business day."
+        path="/contact"
+      />
       {/* Hero */}
       <section className="relative border-b border-line">
         <div
